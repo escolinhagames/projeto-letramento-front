@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.box {
+  background: #f0f0f0;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+p {
+  color: red;
+  margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .box {
+    width: 90%;
+  }
+}

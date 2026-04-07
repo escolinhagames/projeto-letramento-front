@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="box">
+    <h2>Cadastro</h2>
+
+    <input placeholder="Nome" [(ngModel)]="nome">
+    <input placeholder="Email" [(ngModel)]="email">
+    <input type="password" placeholder="Senha" [(ngModel)]="senha">
+    <input type="password" placeholder="Confirme sua senha" [(ngModel)]="confirmar">
+
+    <button (click)="salvar()">Salvar</button>
+
+    <p *ngIf="erro">{{erro}}</p>
+  </div>
+</div>
