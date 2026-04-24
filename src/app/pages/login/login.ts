@@ -41,8 +41,6 @@ export class LoginComponent {
       // 🔥 ESSENCIAL
       this.auth.salvarSessao(resposta.nome, resposta.token, resposta.id);
 
-      console.log("TOKEN:", resposta.token); // 👈 debug
-
       this.router.navigate(['/dashboard']);
     } catch (e) {
       alert('Email ou senha inválidos');
