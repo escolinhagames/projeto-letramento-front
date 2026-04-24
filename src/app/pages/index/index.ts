@@ -23,7 +23,7 @@ export class IndexComponent {
 
   falarInstrucao() {
     const msg = new SpeechSynthesisUtterance(
-      'Se você for um aluno clique no botão que tem um chápel'
+      'Se você for um aluno clique no botão que tem um aluno'
     );
     window.speechSynthesis.speak(msg);
   }
