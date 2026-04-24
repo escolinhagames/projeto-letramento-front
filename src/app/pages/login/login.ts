@@ -33,11 +33,13 @@ export class LoginComponent {
     );
     window.speechSynthesis.speak(msg);
   }
+
   async login() {
     try {
       const resposta = await this.auth.login(this.email, this.senha);
 
-      this.auth.salvarSessao(resposta.nome, resposta.token);
+      // 🔥 ESSENCIAL
+      this.auth.salvarSessao(resposta.nome, resposta.token, resposta.id);
 
       this.router.navigate(['/dashboard']);
     } catch (e) {
