@@ -1,15 +1,37 @@
 <div class="container">
   <h2>Bem-vindo, {{nome}}</h2>
+  <p>Escolha um jogo para jogar:</p>
 
   <button class="btn-nova" (click)="abrirModal()">
   + Nova Palavra
   </button>
   <div class="grid">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
+    <div class="item" (click)="selecionarJogo(1)">
+      <h3>Bingo</h3>
+      <p>Jogo clássico de bingo com cartelas</p>
+      <span class="status">Disponível</span>
+    </div>
+
+    <div class="item" (click)="selecionarJogo(2)">
+      <h3>Embaralhar</h3>
+      <p>Adivinhe a palavra pela imagem</p>
+      <span class="status">Disponível</span>
+    </div>
+
+    <div class="item" (click)="selecionarJogo(3)">
+      <h3>Jogo 3</h3>
+      <p>Em desenvolvimento</p>
+      <span class="status">Em breve</span>
+    </div>
+
+    <div class="item" (click)="selecionarJogo(4)">
+      <h3>Jogo 4</h3>
+      <p>Em desenvolvimento</p>
+      <span class="status">Em breve</span>
+    </div>
   </div>
+
+  <button (click)="logout()" class="btn-logout">Sair</button>
 </div>
 <div class="modal" *ngIf="modalAberto">
   <div class="modal-content">

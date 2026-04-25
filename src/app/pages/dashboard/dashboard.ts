@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone: true,
@@ -14,6 +16,8 @@ export class DashboardComponent implements OnInit {
   nome = '';
   modalAberto = false;
 
+  constructor(private router: Router, private authService: AuthService) {}
+
   ngOnInit() {
     this.nome = localStorage.getItem('nome') || '';
   }
@@ -26,37 +30,56 @@ export class DashboardComponent implements OnInit {
     this.modalAberto = false;
   }
 
+  selecionarJogo(jogo: number) {
+    if (jogo === 1) {
+      this.router.navigate(['/bingo/jogo']);
+      return;
+    }
+
+    if (jogo === 2) {
+      alert('Embaralhar ainda não está disponível.');
+      return;
+    }
+
+    alert('Esse jogo ainda não está disponível.');
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
   async salvarPalavra() {
     const palavraInput = document.getElementById('palavra') as HTMLInputElement;
     const imagemInput = document.getElementById('imagem') as HTMLInputElement;
     const token = localStorage.getItem('token') || '';
     const professorId = localStorage.getItem('professorId') || '1';
 
-  if (!palavraInput.value || imagemInput.files?.length === 0) {
-    alert("Preencha tudo");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("palavra", palavraInput.value);
-  formData.append("imagem", imagemInput.files![0]);
-
-  try {
-      const response = await fetch(`http://localhost:8080/palavras/${professorId}`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData
-    });
-
-    if (response.ok) {
-      alert("Salvo com sucesso");
-      this.fecharModal();
-    } else {
-      alert("Erro: " + response.status);
+    if (!palavraInput?.value || imagemInput?.files?.length === 0) {
+      alert('Preencha tudo');
+      return;
     }
 
-  } catch (e) {
-    console.error(e);
+    const formData = new FormData();
+    formData.append('palavra', palavraInput.value);
+    formData.append('imagem', imagemInput.files![0]);
+
+    try {
+      const response = await fetch(`http://localhost:8080/palavras/${professorId}`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      });
+
+      if (response.ok) {
+        alert('Salvo com sucesso');
+        this.fecharModal();
+      } else {
+        alert('Erro: ' + response.status);
+      }
+    } catch (e) {
+      console.error(e);
+      alert('Erro ao salvar palavra');
+    }
   }
-}
 }

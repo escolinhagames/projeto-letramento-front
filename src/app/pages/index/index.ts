@@ -14,11 +14,13 @@ export class IndexComponent {
   constructor(private router: Router) {}
 
   irLogin() {
+    localStorage.setItem('tipoUsuario', 'professor');
     this.router.navigate(['/login']);
   }
 
   irAluno() {
-    this.router.navigate(['/aluno']);
+    localStorage.setItem('tipoUsuario', 'aluno');
+    this.router.navigate(['/dashboard']);
   }
 
   falarInstrucao() {
