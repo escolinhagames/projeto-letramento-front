@@ -1,9 +1,44 @@
-<!-- <div class="container">
+<div class="container">
   <div class="box">
-    <h2>Digite seu nome</h2>
+    <h2>Aluno - Entrar na Sala</h2>
 
-    <input [(ngModel)]="nome">
+    <div class="form-group">
+      <label for="nome">Seu nome (opcional - será gerado automaticamente):</label>
+      <input
+        id="nome"
+        type="text"
+        [(ngModel)]="nome"
+        placeholder="Deixe em branco para nome automático"
+        (keyup.enter)="entrar()"
+      >
+      <small *ngIf="!nome.trim()">Será gerado como: Jogador {{autoNomeCounter}}</small>
+    </div>
 
-    <button (click)="entrar()">Entrar</button>
+    <div class="form-group">
+      <label for="codigo">Código da sala:</label>
+      <input
+        id="codigo"
+        type="text"
+        [(ngModel)]="codigoSala"
+        placeholder="Digite o código da sala"
+        (keyup.enter)="entrar()"
+      >
+    </div>
+
+    <button (click)="entrar()" [disabled]="!codigoSala.trim()">
+      Entrar na Sala
+    </button>
+
+    <div *ngIf="mensagem" class="mensagem" [class.erro]="mensagem.includes('Erro')" [class.sucesso]="cartela.length > 0">
+      {{mensagem}}
+    </div>
+
+    <div *ngIf="cartela.length > 0" class="cartela-preview">
+      <h3>Sua Cartela:</h3>
+      <div class="numeros">
+        <span *ngFor="let numero of cartela" class="numero">{{numero}}</span>
+      </div>
+      <p>Entrando no jogo em alguns segundos...</p>
+    </div>
   </div>
-</div> -->
+</div>

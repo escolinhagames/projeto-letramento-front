@@ -65,7 +65,8 @@
               "buildTarget": "projeto-letramento-front:build:production"
             },
             "development": {
-              "buildTarget": "projeto-letramento-front:build:development"
+              "buildTarget": "projeto-letramento-front:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

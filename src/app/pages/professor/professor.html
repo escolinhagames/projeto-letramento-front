@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="box">
+    <h2>Professor - Criar Sala de Bingo</h2>
+
+    <div class="form-group">
+      <label for="nome">Seu nome:</label>
+      <input
+        id="nome"
+        type="text"
+        [(ngModel)]="nomeProfessor"
+        placeholder="Digite seu nome"
+        (keyup.enter)="criarSala()"
+      >
+    </div>
+
+    <button (click)="criarSala()" [disabled]="!nomeProfessor.trim()">
+      Criar Sala
+    </button>
+
+    <div *ngIf="mensagem" class="mensagem" [class.erro]="mensagem.includes('Erro')">
+      {{mensagem}}
+    </div>
+
+    <div *ngIf="codigoSala" class="sala-info">
+      <h3>Código da Sala: {{codigoSala}}</h3>
+      <p>Compartilhe este código com seus alunos</p>
+      <button (click)="irParaJogo()" class="btn-jogo">
+        Entrar no Jogo
+      </button>
+    </div>
+  </div>
+</div>
