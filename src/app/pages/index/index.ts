@@ -19,8 +19,7 @@ export class IndexComponent {
   }
 
   irAluno() {
-    localStorage.setItem('tipoUsuario', 'aluno');
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/aluno-dashboard']);
   }
 
   falarInstrucao() {
