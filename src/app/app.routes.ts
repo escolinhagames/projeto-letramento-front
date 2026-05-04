@@ -13,6 +13,11 @@ export const routes: Routes = [
       import('./pages/dashboard/dashboard').then(m => m.DashboardComponent)
   },
   {
+    path: 'aluno-dashboard',
+    loadComponent: () =>
+      import('./pages/aluno-dashboard/aluno-dashboard').then(m => m.AlunoDashboardComponent)
+  },
+  {
     path: 'professor',
     loadComponent: () =>
       import('./pages/professor/professor').then(m => m.ProfessorComponent)

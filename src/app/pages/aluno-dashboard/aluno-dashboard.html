@@ -1,0 +1,37 @@
+<div class="aluno-dashboard-container">
+  <div class="header">
+    <button class="back-btn" (click)="voltar()">← Voltar</button>
+  </div>
+
+  <h2>Escolha um Jogo para Jogar:</h2>
+
+  <div class="games-grid">
+    <!-- Bingo Card -->
+    <div class="game-card" (click)="selecionarJogo(1)" title="Clique para jogar Bingo">
+      <h3>🎲 Bingo</h3>
+      <p>Jogo clássico de bingo com cartelas</p>
+      <span class="status disponivel">Disponível</span>
+    </div>
+
+    <!-- Embaralhar Card -->
+    <div class="game-card" (click)="selecionarJogo(2)" title="Clique para jogar Embaralhar">
+      <h3>🔤 Embaralhar</h3>
+      <p>Adivinhe a palavra pela imagem</p>
+      <span class="status disponivel">Disponível</span>
+    </div>
+
+    <!-- Game 3 Card (Disabled) -->
+    <div class="game-card disabled">
+      <h3>🎯 Jogo 3</h3>
+      <p>Em desenvolvimento</p>
+      <span class="status em-breve">Em breve</span>
+    </div>
+
+    <!-- Game 4 Card (Disabled) -->
+    <div class="game-card disabled">
+      <h3>🎪 Jogo 4</h3>
+      <p>Em desenvolvimento</p>
+      <span class="status em-breve">Em breve</span>
+    </div>
+  </div>
+</div>

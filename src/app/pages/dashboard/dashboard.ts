@@ -32,12 +32,12 @@ export class DashboardComponent implements OnInit {
 
   selecionarJogo(jogo: number) {
     if (jogo === 1) {
-      this.router.navigate(['/bingo/jogo']);
+      window.location.href = 'http://localhost:8080/bingo/professor';
       return;
     }
 
     if (jogo === 2) {
-      alert('Embaralhar ainda não está disponível.');
+      window.location.href = 'http://localhost:8080/embaralhar/professor';
       return;
     }
 
