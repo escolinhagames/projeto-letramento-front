@@ -19,13 +19,23 @@ export const routes: Routes = [
   },
   {
     path: 'professor',
-    loadComponent: () =>
-      import('./pages/professor/professor').then(m => m.ProfessorComponent)
+    loadComponent: () => import('./professor/professor').then(m => m.ProfessorComponent)
   },
   {
     path: 'aluno',
-    loadComponent: () =>
-      import('./pages/aluno/aluno').then(m => m.AlunoComponent)
+    loadComponent: () => import('./aluno/aluno').then(m => m.AlunoComponent)
+  },
+  {
+    path: 'aluno/jogo/:id',
+    loadComponent: () => import('./jogo/jogo').then(m => m.JogoComponent)
+  },
+  {
+    path: 'professor/detalhes/:id',
+    loadComponent: () => import('./detalhes-jogo/detalhes-jogo').then(m => m.DetalhesJogoComponent)
+  },
+  {
+    path: 'memorizacao',
+    loadComponent: () => import('./memorizacao/memorizacao').then(m => m.MemorizacaoComponent)
   },
   {
     path: 'bingo/jogo',

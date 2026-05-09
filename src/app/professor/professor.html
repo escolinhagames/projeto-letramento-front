@@ -1,0 +1,65 @@
+    <div class="container">
+        <div class="header">
+            <h1>👨‍🏫 Painel do Professor</h1>
+            <a routerLink="/" class="btn-voltar">← Voltar</a>
+        </div>
+
+        @if (sucesso) {
+            <div class="alert alert-success">{{ sucesso }}</div>
+        }
+        @if (erro) {
+            <div class="alert alert-error">{{ erro }}</div>
+        }
+
+        <div class="form-section">
+            <h2>Criar Novo Jogo</h2>
+            <form (ngSubmit)="criarJogo()" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="palavra">Palavra</label>
+                    <input type="text" id="palavra" name="palavra" [(ngModel)]="novaPalavra" placeholder="Digite a palavra..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagem">Imagem</label>
+                    <input type="file" id="imagem" name="imagem" (change)="onFileSelected($event)" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dificuldade">Dificuldade</label>
+                    <select id="dificuldade" name="dificuldade" [(ngModel)]="novaDificuldade" required>
+                        <option value="EASY">Fácil - Só embaralha as letras da palavra</option>
+                        <option value="HARD">Difícil - Adiciona letras extras embaralhadas</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-criar">Criar Jogo</button>
+            </form>
+        </div>
+
+        <h2>Meus Jogos</h2>
+
+        @if (games.length === 0) {
+            <div class="empty-message">
+                Nenhum jogo criado ainda. Crie um novo jogo acima!
+            </div>
+        }
+
+        @if (games.length > 0) {
+            <div class="games-grid">
+                @for (game of games; track game.id) {
+                    <div class="game-card">
+                        <img [src]="'data:image/jpeg;base64,' + imageMap[game.id]"
+                             [alt]="game.word">
+                        <h3>{{ game.word.toUpperCase() }}</h3>
+                        <p>Dificuldade: {{ game.difficulty === 'EASY' ? 'Fácil' : 'Difícil' }}</p>
+                        <p>Criado em: {{ game.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+
+                        <div class="btn-group">
+                            <a [routerLink]="['/professor/detalhes', game.id]" class="btn-small btn-detalhes">Ver Detalhes</a>
+                            <button (click)="desativarJogo(game.id)" class="btn-small btn-desativar">Desativar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>

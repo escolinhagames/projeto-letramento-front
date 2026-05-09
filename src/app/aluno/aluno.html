@@ -1,0 +1,27 @@
+    <div class="container">
+        <div class="header">
+            <h1>👨‍🎓 Escolha um Jogo</h1>
+            <a routerLink="/" class="btn-voltar">← Voltar</a>
+        </div>
+
+        <h2>Jogos Disponíveis</h2>
+
+        @if (games.length === 0) {
+            <div class="empty-message">
+                Nenhum jogo disponível no momento. Tente novamente mais tarde!
+            </div>
+        }
+
+        @if (games.length > 0) {
+            <div class="games-grid">
+                @for (game of games; track game.id) {
+                    <div class="game-card">
+                        <img [src]="'data:image/jpeg;base64,' + imageMap[game.id]"
+                             alt="Jogo">
+                        <h3>Desafio #{{ game.id }}</h3>
+                        <p style="color: #999; margin-bottom: 15px;">Adivinhe a palavra!</p>
+                        <a [routerLink]="['/aluno/jogo', game.id]" class="btn-jogar">Jogar →</a>
+                    </div>
+                }
+            </div>
+        }

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card">
+    <h1>Jogo da Memória</h1>
+
+    <div class="tabuleiro">
+      <div
+        class="carta"
+        *ngFor="let carta of cartas"
+        (click)="virarCarta(carta)"
+        [class.virada]="carta.virada || carta.encontrada"
+        [class.encontrada]="carta.encontrada"
+        [class.erro]="carta.erro"
+      >
+        <div class="carta-inner">
+          <!-- Frente da carta (quando está escondida) -->
+          <div class="carta-frente">
+            <span class="interrogacao" style="font-size: 3rem;">❓</span>
+          </div>
+
+          <!-- Verso da carta (quando está virada) -->
+          <div class="carta-verso">
+            <span [ngClass]="{'icone': carta.tipo === 'icone', 'texto': carta.tipo === 'texto'}" [style.font-size]="carta.tipo === 'icone' ? '6rem' : '1.5rem'">
+              {{ carta.conteudo }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -41,6 +41,11 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    if (jogo === 3) {
+      this.router.navigate(['/memorizacao']);
+      return;
+    }
+
     alert('Esse jogo ainda não está disponível.');
   }
 
