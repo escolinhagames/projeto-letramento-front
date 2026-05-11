@@ -18,6 +18,11 @@ export const routes: Routes = [
       import('./pages/aluno-dashboard/aluno-dashboard').then(m => m.AlunoDashboardComponent)
   },
   {
+    path: 'creditos',
+    loadComponent: () =>
+      import('./pages/creditos/creditos').then(m => m.CreditosComponent)
+  },
+  {
     path: 'professor',
     loadComponent: () => import('./professor/professor').then(m => m.ProfessorComponent)
   },

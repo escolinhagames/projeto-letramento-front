@@ -1,0 +1,48 @@
+.creditos-page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.creditos-card {
+  width: min(720px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+}
+
+.creditos-card h2 {
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+.creditos-card p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.creditos-card ul {
+  list-style: disc inside;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.creditos-card li {
+  margin: 0.5rem 0;
+  color: #2a2a2a;
+}
+
+.btn-voltar {
+  border: none;
+  background: #2f80ed;
+  color: white;
+  border-radius: 999px;
+  padding: 0.9rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-voltar:hover {
+  background: #1f66d0;
+}

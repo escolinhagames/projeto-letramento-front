@@ -1,0 +1,10 @@
+<div class="creditos-page">
+  <div class="creditos-card">
+    <h2>Créditos</h2>
+    <p>Agradecimento aos responsáveis pelo projeto:</p>
+    <ul>
+      <li *ngFor="let nome of creditos">{{ nome }}</li>
+    </ul>
+    <button class="btn-voltar" (click)="voltar()">Voltar</button>
+  </div>
+</div>

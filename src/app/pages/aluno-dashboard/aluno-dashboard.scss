@@ -23,6 +23,21 @@
       background: #f0f0f0;
     }
   }
+
+  .btn-creditos {
+    background: #2f80ed;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+
+  .btn-creditos:hover {
+    background: #1f66d0;
+  }
 }
 
 h2 {
