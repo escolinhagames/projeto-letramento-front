@@ -1,11 +1,33 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard'
-
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', loadComponent: () => import('./pages/index/index').then(m => m.IndexComponent) },
-  { path: 'login', loadComponent: () => import('./pages/login/login').then(m => m.LoginComponent) },
-  { path: 'cadastro', loadComponent: () => import('./pages/cadastro/cadastro').then(m => m.CadastroComponent) },
+  // 🏠 PÚBLICO (bloqueado se professor logado)
+  {
+    path: '',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/index/index').then(m => m.IndexComponent)
+  },
+  {
+    path: 'login',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/login/login').then(m => m.LoginComponent)
+  },
+  {
+    path: 'cadastro',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/cadastro/cadastro').then(m => m.CadastroComponent)
+  },
+  {
+    path: 'creditos', // 🔥 única rota nova adicionada
+    loadComponent: () =>
+      import('./pages/creditos/creditos').then(m => m.CreditosComponent)
+  },
+
+  // 🔒 PROFESSOR
   {
     path: 'dashboard',
     canActivate: [authGuard],
@@ -13,34 +35,43 @@ export const routes: Routes = [
       import('./pages/dashboard/dashboard').then(m => m.DashboardComponent)
   },
   {
+    path: 'professor',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/professor/professor').then(m => m.ProfessorComponent)
+  },
+  {
+    path: 'professor/detalhes/:id',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./detalhes-jogo/detalhes-jogo').then(m => m.DetalhesJogoComponent)
+  },
+
+  // 👨‍🎓 ALUNO (bloqueado para professor)
+  {
+    path: 'aluno',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/aluno/aluno').then(m => m.AlunoComponent)
+  },
+  {
     path: 'aluno-dashboard',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/aluno-dashboard/aluno-dashboard').then(m => m.AlunoDashboardComponent)
   },
   {
-    path: 'creditos',
-    loadComponent: () =>
-      import('./pages/creditos/creditos').then(m => m.CreditosComponent)
-  },
-  {
-    path: 'professor',
-    loadComponent: () => import('./professor/professor').then(m => m.ProfessorComponent)
-  },
-  {
-    path: 'aluno',
-    loadComponent: () => import('./aluno/aluno').then(m => m.AlunoComponent)
-  },
-  {
     path: 'aluno/jogo/:id',
-    loadComponent: () => import('./jogo/jogo').then(m => m.JogoComponent)
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./jogo/jogo').then(m => m.JogoComponent)
   },
-  {
-    path: 'professor/detalhes/:id',
-    loadComponent: () => import('./detalhes-jogo/detalhes-jogo').then(m => m.DetalhesJogoComponent)
-  },
+
+  // 🎮 OUTROS
   {
     path: 'memorizacao',
-    loadComponent: () => import('./memorizacao/memorizacao').then(m => m.MemorizacaoComponent)
+    loadComponent: () =>
+      import('./memorizacao/memorizacao').then(m => m.MemorizacaoComponent)
   },
   {
     path: 'bingo/jogo',
