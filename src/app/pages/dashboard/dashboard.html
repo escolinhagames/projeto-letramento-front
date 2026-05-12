@@ -2,9 +2,10 @@
   <h2>Bem-vindo, {{nome}}</h2>
   <p>Escolha um jogo para jogar:</p>
 
-  <button class="btn-nova" (click)="abrirModal()">
-  + Nova Palavra
-  </button>
+  <div class="top-actions">
+    <button class="btn-creditos" routerLink="/creditos">Créditos</button>
+    <button class="btn-nova" (click)="abrirModal()">+ Nova Palavra</button>
+  </div>
   <div class="grid">
     <div class="item" (click)="selecionarJogo(1)">
       <h3>Bingo</h3>
@@ -19,9 +20,9 @@
     </div>
 
     <div class="item" (click)="selecionarJogo(3)">
-      <h3>Jogo 3</h3>
-      <p>Em desenvolvimento</p>
-      <span class="status">Em breve</span>
+      <h3>Memória</h3>
+      <p>Encontre os pares corretos</p>
+      <span class="status">Disponível</span>
     </div>
 
     <div class="item" (click)="selecionarJogo(4)">

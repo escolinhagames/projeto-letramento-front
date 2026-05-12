@@ -1,0 +1,75 @@
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Adivinhe a Palavra!</h1>
+            <a routerLink="/aluno" class="btn-voltar">← Voltar</a>
+        </div>
+
+        <div class="image-container">
+            <img [src]="'data:image/jpeg;base64,' + imageBase64" alt="Imagem do desafio">
+        </div>
+
+        @if (mensagem) {
+            <div class="alert" [ngClass]="{'alert-success': sucesso, 'alert-error': !sucesso}">
+                {{ mensagem }}
+            </div>
+        }
+
+        <div class="form-section">
+            <form (ngSubmit)="enviarResposta()">
+                <input type="hidden" name="gameId" [value]="game.id">
+                <input type="hidden" id="resposta" name="resposta" [value]="currentAnswer">
+
+                <div class="form-group">
+                    @if (game.difficulty === 'EASY') {
+                        <label>Forme a palavra abaixo (use todas as letras disponíveis):</label>
+                    } @else {
+                        <label>Forme a palavra abaixo (use exatamente {{ game.word.length }} letras):</label>
+                    }
+                    <div class="current-answer" id="currentAnswer">{{ currentAnswer }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Letras embaralhadas</label>
+                    <div class="scrambled-letters">
+                        @for (letter of shuffledLetters; track $index) {
+                            <button type="button"
+                                    class="letter-button"
+                                    [disabled]="usedIndexes.includes($index) || sucesso"
+                                    [class.used]="usedIndexes.includes($index)"
+                                    (click)="selectLetter($index)">
+                                {{ letter }}
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button type="button" class="btn-clear" id="btnClear" [disabled]="sucesso" (click)="clearSelection()">Limpar</button>
+                    <button type="submit" class="btn-enviar" id="btnSubmit" [disabled]="!canSubmit()">
+                        @if (!sucesso) {
+                            <span>Enviar Resposta</span>
+                        } @else {
+                            <span>✓ Acertou!</span>
+                        }
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        @if (attempt) {
+            <div class="result">
+                <p><strong>Palavra formada:</strong> {{ attempt.studentAnswer.toUpperCase() }}</p>
+                @if (sucesso) {
+                    <p style="color: #155724; font-weight: bold;">
+                        ✓ Parabéns! A resposta correta era: {{ game.word.toUpperCase() }}
+                    </p>
+                } @else {
+                    <p style="color: #721c24; font-weight: bold;">
+                        ✗ Ainda não! A palavra correta era: {{ game.word.toUpperCase() }}
+                    </p>
+                }
+                <p style="font-size: 0.9rem; color: #999; margin-top: 10px;">
+                    Tentativa em: {{ attempt.attemptedAt | date:'HH:mm:ss' }}
+                </p>
+            </div>
+        }

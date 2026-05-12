@@ -69,6 +69,40 @@
   background: #c82333;
 }
 
+.top-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.btn-creditos,
+.btn-nova {
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  padding: 12px 22px;
+  font-weight: 600;
+}
+
+.btn-creditos {
+  background: #2f80ed;
+  color: white;
+}
+
+.btn-creditos:hover {
+  background: #1f66d0;
+}
+
+.btn-nova {
+  background: #37b24d;
+  color: white;
+}
+
+.btn-nova:hover {
+  background: #2f8a3f;
+}
+
 .modal {
   position: fixed;
   top: 0;

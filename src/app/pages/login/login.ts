@@ -38,8 +38,11 @@ export class LoginComponent {
     try {
       const resposta = await this.auth.login(this.email, this.senha);
 
-      // 🔥 ESSENCIAL
+      // 🔥 salva sessão
       this.auth.salvarSessao(resposta.nome, resposta.token, resposta.id);
+
+      // 🔥 ESSENCIAL: definir tipo de usuário
+      localStorage.setItem('tipoUsuario', 'professor');
 
       this.router.navigate(['/dashboard']);
     } catch (e) {
