@@ -46,6 +46,11 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    if (jogo === 4) {
+      this.router.navigate(['/professor-imagem']);
+      return;
+    }
+
     alert('Esse jogo ainda não está disponível.');
   }
 

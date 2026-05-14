@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="header">
+    <h1>👨‍🎓 Salas Disponíveis</h1>
+    <button (click)="voltar()" class="btn-voltar">← Voltar</button>
+  </div>
+
+  <p *ngIf="carregando">Carregando salas...</p>
+
+  <p *ngIf="!carregando && salas.length === 0" class="vazio">
+    Nenhuma sala disponível no momento.
+  </p>
+
+  <div class="salas-grid" *ngIf="!carregando && salas.length > 0">
+    <div class="sala-card" *ngFor="let sala of salas">
+      <h3>Sala #{{ sala.id }}</h3>
+      <p>Clique para entrar e jogar!</p>
+      <button (click)="entrar(sala.id)" class="btn-entrar">Entrar →</button>
+    </div>
+  </div>
+</div>

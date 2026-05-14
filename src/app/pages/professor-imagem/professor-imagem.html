@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="header">
+    <h1>👨‍🏫 Jogo Imagem — Professor</h1>
+    <button (click)="voltar()" class="btn-voltar">← Voltar</button>
+  </div>
+
+  <div *ngIf="mensagem" class="alert alert-success">{{ mensagem }}</div>
+  <div *ngIf="erro" class="alert alert-erro">{{ erro }}</div>
+
+  <!-- Formulário de criação -->
+  <div class="form-section">
+    <h2>Criar Nova Sala</h2>
+
+    <div class="form-group">
+      <label>Palavra Correta</label>
+      <input [(ngModel)]="palavraCorreta" placeholder="Ex: PROFESSOR" />
+      <small>A primeira letra aparecerá como dica para o aluno</small>
+    </div>
+
+    <div class="form-group">
+      <label>Dificuldade</label>
+      <select [(ngModel)]="dificuldade">
+        <option value="FACIL">Fácil — mostra só a 1ª letra</option>
+        <option value="MEDIO">Médio — mostra 3 letras em ordem</option>
+        <option value="DIFICIL">Difícil — mostra 3 letras embaralhadas</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Imagem Correta</label>
+      <input type="file" (change)="selecionarImg($event, 1)" accept="image/*" />
+    </div>
+    <div class="form-group">
+      <label>Imagem Falsa 1</label>
+      <input type="file" (change)="selecionarImg($event, 2)" accept="image/*" />
+    </div>
+    <div class="form-group">
+      <label>Imagem Falsa 2</label>
+      <input type="file" (change)="selecionarImg($event, 3)" accept="image/*" />
+    </div>
+
+    <button (click)="criar()" class="btn-criar">Criar Sala</button>
+  </div>
+
+  <!-- Lobby de salas -->
+  <div class="lobby">
+    <h2>Minhas Salas</h2>
+    <p *ngIf="carregando" class="carregando">Carregando...</p>
+    <p *ngIf="!carregando && minhasSalas.length === 0" class="vazio">
+      Nenhuma sala criada ainda.
+    </p>
+
+    <div class="salas-grid" *ngIf="!carregando && minhasSalas.length > 0">
+      <div class="sala-card" *ngFor="let sala of minhasSalas">
+        <img [src]="'data:image/jpeg;base64,' + sala.imagem1" alt="Imagem" />
+        <div class="sala-info">
+          <h3>{{ sala.palavraCorreta }}</h3>
+          <span class="badge" [class]="'badge-' + sala.dificuldade.toLowerCase()">
+            {{ sala.dificuldade }}
+          </span>
+          <p class="dica">Dica: <strong>{{ sala.dica }}</strong></p>
+        </div>
+        <div class="sala-acoes">
+          <button (click)="abrirEdicao(sala)" class="btn-editar" title="Editar">✏️</button>
+          <button (click)="deletar(sala.id)" class="btn-deletar" title="Deletar">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de edição -->
+<div class="modal-overlay" *ngIf="editando">
+  <div class="modal">
+    <h2>✏️ Editar Sala</h2>
+
+    <div class="form-group">
+      <label>Palavra</label>
+      <input [(ngModel)]="editPalavra" />
+    </div>
+    <div class="form-group">
+      <label>Dificuldade</label>
+      <select [(ngModel)]="editDificuldade">
+        <option value="FACIL">Fácil</option>
+        <option value="MEDIO">Médio</option>
+        <option value="DIFICIL">Difícil</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Imagem Correta (opcional)</label>
+      <input type="file" (change)="selecionarEditImg($event, 1)" accept="image/*" />
+    </div>
+    <div class="form-group">
+      <label>Imagem Falsa 1 (opcional)</label>
+      <input type="file" (change)="selecionarEditImg($event, 2)" accept="image/*" />
+    </div>
+    <div class="form-group">
+      <label>Imagem Falsa 2 (opcional)</label>
+      <input type="file" (change)="selecionarEditImg($event, 3)" accept="image/*" />
+    </div>
+
+    <div class="modal-botoes">
+      <button (click)="salvarEdicao()" class="btn-criar">Salvar</button>
+      <button (click)="fecharEdicao()" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>

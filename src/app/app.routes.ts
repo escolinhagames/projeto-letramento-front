@@ -78,5 +78,24 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/bingo-jogo/bingo-jogo').then(m => m.BingoJogoComponent)
-  }
+  },
+  {
+  path: 'professor-imagem',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./pages/professor-imagem/professor-imagem')
+      .then(m => m.ProfessorImagemComponent)
+  },
+  {
+    path: 'aluno-imagem',
+    loadComponent: () =>
+      import('./pages/aluno-imagem/aluno-imagem')
+        .then(m => m.AlunoImagemComponent)
+  },
+  {
+    path: 'jogo-imagem/:id',
+    loadComponent: () =>
+      import('./pages/jogo-imagem/jogo-imagem')
+        .then(m => m.JogoImagemComponent)
+  },
 ];
