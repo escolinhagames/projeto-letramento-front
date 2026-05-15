@@ -1,0 +1,37 @@
+<div class="container" *ngIf="sala">
+
+  <div class="dica">
+    <div class="letra-box">{{ sala.dica }}</div>
+    <button (click)="falarLetra()" class="btn-audio">🔊</button>
+  </div>
+
+  <div class="imagens-grid">
+    <div
+      *ngFor="let img of imagens; let i = index"
+      class="imagem-card"
+      [class.selecionada]="selecionada === i"
+      [class.erro]="resultado === 'erro' && selecionada === i"
+      (click)="selecionar(i)"
+    >
+      <img [src]="'data:image/jpeg;base64,' + img.base64" alt="Imagem" />
+    </div>
+  </div>
+
+  <button
+    (click)="confirmar()"
+    class="btn-confirmar"
+    [disabled]="selecionada === null || resultado === 'acerto'"
+  >
+    Confirmar
+  </button>
+
+  <!-- Modal de acerto -->
+  <div *ngIf="resultado === 'acerto'" class="modal-overlay">
+    <div class="modal">
+      <h2>🎉 Parabéns!</h2>
+      <p>Você acertou!</p>
+      <button (click)="voltarParaSalas()">OK</button>
+    </div>
+  </div>
+
+</div>

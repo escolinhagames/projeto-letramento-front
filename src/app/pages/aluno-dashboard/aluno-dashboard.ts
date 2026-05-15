@@ -36,6 +36,11 @@ export class AlunoDashboardComponent implements OnInit {
       return;
     }
 
+    if (jogo === 4) {
+      this.router.navigate(['/aluno-imagem']);
+      return;
+    }
+
     alert('Esse jogo ainda não está disponível.');
   }
 
