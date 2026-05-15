@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 
+interface AuthResponse {
+  nome: string;
+  token: string;
+  id: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -7,7 +13,7 @@ export class AuthService {
 
   private API = 'http://localhost:8080/auth';
 
-  async login(email: string, senha: string) {
+  async login(email: string, senha: string): Promise<AuthResponse> {
     const response = await fetch(`${this.API}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -21,7 +27,7 @@ export class AuthService {
     return response.json();
   }
 
-  async register(nome: string, email: string, senha: string) {
+  async register(nome: string, email: string, senha: string): Promise<AuthResponse> {
     const response = await fetch(`${this.API}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -35,13 +41,18 @@ export class AuthService {
     return response.json();
   }
 
-  salvarSessao(nome: string, token: string) {
+  salvarSessao(nome: string, token: string, id: number) {
     localStorage.setItem('nome', nome);
     localStorage.setItem('token', token);
+    localStorage.setItem('professorId', id.toString());
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   estaLogado(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 
   logout() {

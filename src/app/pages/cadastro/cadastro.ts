@@ -36,7 +36,7 @@ export class CadastroComponent {
         this.senha
       );
 
-      this.auth.salvarSessao(resposta.nome, resposta.token);
+      this.auth.salvarSessao(resposta.nome, resposta.token, resposta.id);
 
       this.router.navigate(['/dashboard']);
     } catch (e) {

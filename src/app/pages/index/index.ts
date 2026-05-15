@@ -14,16 +14,17 @@ export class IndexComponent {
   constructor(private router: Router) {}
 
   irLogin() {
+    localStorage.setItem('tipoUsuario', 'professor');
     this.router.navigate(['/login']);
   }
 
   irAluno() {
-    this.router.navigate(['/aluno']);
+    this.router.navigate(['/aluno-dashboard']);
   }
 
   falarInstrucao() {
     const msg = new SpeechSynthesisUtterance(
-      'Se você for um aluno clique no botão que tem um chápel'
+      'Se você for um aluno clique no botão que tem um aluno'
     );
     window.speechSynthesis.speak(msg);
   }

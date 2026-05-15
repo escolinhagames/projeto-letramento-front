@@ -1,0 +1,38 @@
+<div class="aluno-dashboard-container">
+  <div class="header">
+    <button class="back-btn" (click)="voltar()">← Voltar</button>
+    <button class="btn-creditos" routerLink="/creditos">Créditos</button>
+  </div>
+
+  <h2>Escolha um Jogo para Jogar:</h2>
+
+  <div class="games-grid">
+    <!-- Bingo Card -->
+    <div class="game-card" (click)="selecionarJogo(1)" title="Clique para jogar Bingo">
+      <h3>🎲 Bingo</h3>
+      <p>Jogo clássico de bingo com cartelas</p>
+      <span class="status disponivel">Disponível</span>
+    </div>
+
+    <!-- Embaralhar Card -->
+    <div class="game-card" (click)="selecionarJogo(2)" title="Clique para jogar Embaralhar">
+      <h3>🔤 Embaralhar</h3>
+      <p>Adivinhe a palavra pela imagem</p>
+      <span class="status disponivel">Disponível</span>
+    </div>
+
+    <!-- Memória Card -->
+    <div class="game-card" (click)="selecionarJogo(3)" title="Clique para jogar Memória">
+      <h3>🧠 Memória</h3>
+      <p>Encontre os pares corretos</p>
+      <span class="status disponivel">Disponível</span>
+    </div>
+
+    <!-- Game 4 Card (Disabled) -->
+    <div class="game-card" (click)="selecionarJogo(4)" title="Acerte a letra">
+      <h2>Acerte a letra</h2>
+      <p>Adivinhe a imagem pela dica de letras</p>
+      <span class="status disponivel">Disponível</span>
+    </div>
+  </div>
+</div>

@@ -33,11 +33,16 @@ export class LoginComponent {
     );
     window.speechSynthesis.speak(msg);
   }
+
   async login() {
     try {
       const resposta = await this.auth.login(this.email, this.senha);
 
-      this.auth.salvarSessao(resposta.nome, resposta.token);
+      // 🔥 salva sessão
+      this.auth.salvarSessao(resposta.nome, resposta.token, resposta.id);
+
+      // 🔥 ESSENCIAL: definir tipo de usuário
+      localStorage.setItem('tipoUsuario', 'professor');
 
       this.router.navigate(['/dashboard']);
     } catch (e) {

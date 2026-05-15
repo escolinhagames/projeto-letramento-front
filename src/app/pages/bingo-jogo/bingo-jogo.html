@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="header">
+    <h1>Bingo - Sala {{codigoSala}}</h1>
+    <p>Olá, {{nomeUsuario}}!</p>
+    <button (click)="voltarInicio()" class="btn-voltar">← Voltar ao Início</button>
+  </div>
+
+  <!-- Interface do Professor -->
+  <div *ngIf="tipo === 'professor'" class="professor-panel">
+    <div class="controles">
+      <button (click)="sortearNumero()" [disabled]="jogoEncerrado" class="btn-sortear">🎲 Sortear Número</button>
+      <button (click)="resetarSala()" class="btn-reset">🔄 Novo Jogo</button>
+      <button (click)="encerrarSala()" class="btn-encerrar">❌ Encerrar Sala</button>
+    </div>
+
+    <div class="info-sala">
+      <h3>Informações da Sala</h3>
+      <p><strong>Alunos conectados:</strong> {{alunos.length}}</p>
+      <p><strong>Alunos com BINGO:</strong> {{quantidadeAlunosBingo}}</p>
+      <div *ngIf="alunos.length > 0" class="lista-alunos">
+        <ul>
+          <li *ngFor="let aluno of alunos">{{aluno}}</li>
+        </ul>
+      </div>
+      <div *ngIf="jogoEncerrado" class="jogo-encerrado">
+        <p style="color: green; font-weight: bold;">✅ Jogo encerrado! {{quantidadeAlunosBingo}} aluno(s) fizeram BINGO!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interface do Aluno -->
+  <div *ngIf="tipo === 'aluno'" class="aluno-panel">
+    <div class="cartela">
+      <h3>Sua Cartela Temática - Animais (5x5)</h3>
+      <div class="cartela-grid">
+        <div
+          *ngFor="let linha of cartelaGrid; let i = index"
+          class="linha-cartela">
+          <div
+            *ngFor="let numero of linha; let j = index"
+            class="numero-animal"
+            [attr.data-animal]="obterAnimal(numero)"
+            [class.sorteado]="numeroEstaSorteado(numero)"
+            [class.desabilitado]="jogoEncerrado"
+            (click)="marcarNumero(numero)"
+          >
+            <span class="animal-background">{{obterAnimal(numero)}}</span>
+            <span class="numero-valor">{{numero}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Área comum - Números sorteados -->
+  <div class="numeros-sorteados">
+    <h3>Números Sorteados ({{numerosSorteados.length}}/50)</h3>
+    <div *ngIf="ultimoNumero > 0" class="ultimo-numero">
+      <span class="numero-grande">{{ultimoNumero}}</span>
+      <p>Último número sorteado</p>
+    </div>
+    <div class="lista-sorteados">
+      <span *ngFor="let num of numerosSorteados" class="numero-sorteado">{{num}}</span>
+    </div>
+  </div>
+
+  <!-- Mensagens -->
+  <div *ngIf="mensagem" class="mensagem" [class.erro]="mensagem.includes('Erro')">
+    {{mensagem}}
+  </div>
+</div>
