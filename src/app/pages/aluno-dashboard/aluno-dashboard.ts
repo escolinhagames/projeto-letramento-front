@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -22,12 +23,12 @@ export class AlunoDashboardComponent implements OnInit {
 
   selecionarJogo(jogo: number) {
     if (jogo === 1) {
-      window.location.href = 'http://localhost:8080/bingo/aluno';
+      window.location.href = `${environment.apiUrl}/bingo/aluno`;
       return;
     }
 
     if (jogo === 2) {
-      window.location.href = 'http://localhost:8080/embaralhar/aluno';
+      window.location.href = `${environment.apiUrl}/embaralhar/aluno`;
       return;
     }
 

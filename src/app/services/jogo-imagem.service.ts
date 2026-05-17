@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class JogoImagemService {
 
-  private API = 'http://localhost:8080/jogo-imagem';
+  private API = `${environment.apiUrl}/jogo-imagem`;
 
   async criarSala(
     palavraCorreta: string,

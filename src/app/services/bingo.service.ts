@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface SalaJogo {
   codigo: string;
@@ -16,7 +17,7 @@ interface SalaJogo {
 })
 export class BingoService {
 
-  private API = 'http://localhost:8080/api/bingo/sala';
+  private API = `${environment.apiUrl}/api/bingo/sala`;
 
   constructor(private http: HttpClient) {}
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 interface Game {
   id: string;
@@ -13,7 +14,7 @@ interface Game {
 })
 export class GameService {
 
-  private API = 'http://localhost:8080/api/jogos';
+  private API = `${environment.apiUrl}/api/jogos`;
 
   // Lista os 4 jogos disponíveis
   async listarJogos(): Promise<{ total: number; jogos: Game[] }> {

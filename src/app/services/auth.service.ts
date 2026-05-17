@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 interface AuthResponse {
   nome: string;
@@ -11,7 +12,7 @@ interface AuthResponse {
 })
 export class AuthService {
 
-  private API = 'http://localhost:8080/auth';
+  private API = `${environment.apiUrl}/auth`;
 
   async login(email: string, senha: string): Promise<AuthResponse> {
     const response = await fetch(`${this.API}/login`, {

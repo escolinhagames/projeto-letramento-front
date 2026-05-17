@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -32,12 +33,12 @@ export class DashboardComponent implements OnInit {
 
   selecionarJogo(jogo: number) {
     if (jogo === 1) {
-      window.location.href = 'http://localhost:8080/bingo/professor';
+      window.location.href = `${environment.apiUrl}/bingo/professor`;
       return;
     }
 
     if (jogo === 2) {
-      window.location.href = 'http://localhost:8080/embaralhar/professor';
+      window.location.href = `${environment.apiUrl}/embaralhar/professor`;
       return;
     }
 
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnInit {
     formData.append('imagem', imagemInput.files![0]);
 
     try {
-      const response = await fetch(`http://localhost:8080/palavras/${professorId}`, {
+      const response = await fetch(`${environment.apiUrl}/palavras/${professorId}`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData
