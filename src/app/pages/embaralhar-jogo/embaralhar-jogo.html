@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="header">
+    <h1>🎮 Adivinhe a Palavra!</h1>
+    <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+  </div>
+
+  <div *ngIf="jogo">
+    <div class="image-container">
+      <img [src]="'data:image/jpeg;base64,' + imageBase64" alt="Imagem do desafio">
+    </div>
+
+    <div *ngIf="mensagem" [class]="'alert ' + (sucesso ? 'alert-success' : 'alert-error')">{{ mensagem }}</div>
+
+    <div class="form-section">
+      <label>Sua resposta:</label>
+      <div class="current-answer">{{ currentAnswer || '...' }}</div>
+
+      <label>Letras embaralhadas:</label>
+      <div class="scrambled-letters">
+        <button *ngFor="let letra of shuffledLetters; let i = index"
+                class="letter-button"
+                [class.used]="usedIndexes.includes(i)"
+                [disabled]="usedIndexes.includes(i) || sucesso"
+                (click)="selecionarLetra(i)">
+          {{ letra }}
+        </button>
+      </div>
+
+      <div class="controls">
+        <button class="btn-clear" [disabled]="sucesso" (click)="limpar()">Limpar</button>
+        <button class="btn-enviar" [disabled]="!podeEnviar" (click)="enviar()">
+          {{ sucesso ? '✓ Acertou!' : 'Enviar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

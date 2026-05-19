@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="header">
+    <h1>👨‍🎓 Escolha um Jogo</h1>
+    <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+  </div>
+
+  <h2>Jogos Disponíveis</h2>
+  <p *ngIf="mensagem" class="erro">{{ mensagem }}</p>
+  <p *ngIf="jogos.length === 0 && !mensagem" class="vazio">Nenhum jogo disponível no momento.</p>
+
+  <div class="games-grid">
+    <div class="game-card" *ngFor="let jogo of jogos">
+      <img [src]="'data:image/jpeg;base64,' + jogo.imagemBase64" alt="Jogo">
+      <h3>Desafio #{{ jogo.id }}</h3>
+      <p>Adivinhe a palavra!</p>
+      <button class="btn-jogar" (click)="jogar(jogo.id)">Jogar →</button>
+    </div>
+  </div>
+</div>

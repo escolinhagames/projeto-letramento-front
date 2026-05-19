@@ -33,25 +33,23 @@ export class DashboardComponent implements OnInit {
 
   selecionarJogo(jogo: number) {
     if (jogo === 1) {
-      window.location.href = `${environment.apiUrl}/bingo/professor`;
+      // ✅ ALTERADO: era window.location.href para o Railway, agora navega no Angular
+      this.router.navigate(['/bingo/professor']);
       return;
     }
-
     if (jogo === 2) {
-      window.location.href = `${environment.apiUrl}/embaralhar/professor`;
+      // ✅ ALTERADO: era window.location.href para o Railway, agora navega no Angular
+      this.router.navigate(['/embaralhar/professor']);
       return;
     }
-
     if (jogo === 3) {
       this.router.navigate(['/memorizacao']);
       return;
     }
-
     if (jogo === 4) {
       this.router.navigate(['/professor-imagem']);
       return;
     }
-
     alert('Esse jogo ainda não está disponível.');
   }
 

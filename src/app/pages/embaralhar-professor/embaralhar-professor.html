@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="header">
+    <h1>👨‍🏫 Painel do Professor</h1>
+    <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+  </div>
+
+  <div *ngIf="mensagem" [class]="'alert alert-' + mensagemTipo">{{ mensagem }}</div>
+
+  <div class="form-section">
+    <h2>Criar Novo Jogo</h2>
+    <div class="form-group">
+      <label>Palavra</label>
+      <input type="text" [(ngModel)]="palavra" placeholder="Digite a palavra...">
+    </div>
+    <div class="form-group">
+      <label>Imagem</label>
+      <input type="file" accept="image/*" (change)="onImagemSelecionada($event)">
+    </div>
+    <div class="form-group">
+      <label>Dificuldade</label>
+      <select [(ngModel)]="dificuldade">
+        <option value="EASY">Fácil - Só embaralha as letras</option>
+        <option value="HARD">Difícil - Adiciona letras extras</option>
+      </select>
+    </div>
+    <button class="btn-criar" (click)="criarJogo()">Criar Jogo</button>
+  </div>
+
+  <h2>Meus Jogos</h2>
+  <p *ngIf="jogos.length === 0" class="vazio">Nenhum jogo criado ainda.</p>
+
+  <div class="games-grid">
+    <div class="game-card" *ngFor="let jogo of jogos">
+      <img [src]="'data:image/jpeg;base64,' + jogo.imagemBase64" alt="Jogo">
+      <h3>{{ jogo.palavra?.toUpperCase() }}</h3>
+      <p>{{ jogo.dificuldade === 'EASY' ? 'Fácil' : 'Difícil' }}</p>
+      <p>{{ jogo.criadoEm }}</p>
+      <div class="btn-group">
+        <button class="btn-detalhes" (click)="verDetalhes(jogo.id)">Ver Detalhes</button>
+        <button class="btn-desativar" (click)="desativar(jogo.id)">Desativar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  // 🏠 PÚBLICO (bloqueado se professor logado)
+  // 🏠 PÚBLICO
   {
     path: '',
     canActivate: [authGuard],
@@ -22,7 +22,7 @@ export const routes: Routes = [
       import('./pages/cadastro/cadastro').then(m => m.CadastroComponent)
   },
   {
-    path: 'creditos', // 🔥 única rota nova adicionada
+    path: 'creditos',
     loadComponent: () =>
       import('./pages/creditos/creditos').then(m => m.CreditosComponent)
   },
@@ -47,7 +47,7 @@ export const routes: Routes = [
       import('./detalhes-jogo/detalhes-jogo').then(m => m.DetalhesJogoComponent)
   },
 
-  // 👨‍🎓 ALUNO (bloqueado para professor)
+  // 👨‍🎓 ALUNO
   {
     path: 'aluno',
     canActivate: [authGuard],
@@ -80,11 +80,11 @@ export const routes: Routes = [
       import('./pages/bingo-jogo/bingo-jogo').then(m => m.BingoJogoComponent)
   },
   {
-  path: 'professor-imagem',
-  canActivate: [authGuard],
-  loadComponent: () =>
-    import('./pages/professor-imagem/professor-imagem')
-      .then(m => m.ProfessorImagemComponent)
+    path: 'professor-imagem',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/professor-imagem/professor-imagem')
+        .then(m => m.ProfessorImagemComponent)
   },
   {
     path: 'aluno-imagem',
@@ -97,5 +97,36 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/jogo-imagem/jogo-imagem')
         .then(m => m.JogoImagemComponent)
+  },
+
+  // ✅ NOVO: Bingo Angular
+  {
+    path: 'bingo/professor',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/bingo-professor/bingo-professor').then(m => m.BingoProfessorComponent)
+  },
+  {
+    path: 'bingo/aluno',
+    loadComponent: () =>
+      import('./pages/bingo-aluno/bingo-aluno').then(m => m.BingoAlunoComponent)
+  },
+
+  // ✅ NOVO: Embaralhar Angular
+  {
+    path: 'embaralhar/professor',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/embaralhar-professor/embaralhar-professor').then(m => m.EmbaralharProfessorComponent)
+  },
+  {
+    path: 'embaralhar/aluno',
+    loadComponent: () =>
+      import('./pages/embaralhar-aluno/embaralhar-aluno').then(m => m.EmbaralharAlunoComponent)
+  },
+  {
+    path: 'embaralhar/aluno/jogo/:id',
+    loadComponent: () =>
+      import('./pages/embaralhar-jogo/embaralhar-jogo').then(m => m.EmbaralharJogoComponent)
   },
 ];
