@@ -9,10 +9,20 @@
       <img [src]="'data:image/jpeg;base64,' + imageBase64" alt="Imagem do desafio">
     </div>
 
-    <div *ngIf="mensagem" [class]="'alert ' + (sucesso ? 'alert-success' : 'alert-error')">{{ mensagem }}</div>
+    <!-- ✅ NOVO: nível com autofalante -->
+    <div class="nivel-row">
+      <span class="badge" [class]="'badge-' + (jogo.difficulty || 'EASY').toLowerCase()">
+        {{ dificuldadeTexto }}
+      </span>
+      <button class="btn-audio" (click)="falar(dificuldadeTexto)">🔊</button>
+    </div>
+
+    <div *ngIf="mensagem" [class]="'alert ' + (sucesso ? 'alert-success' : 'alert-error')">
+      {{ mensagem }}
+    </div>
 
     <div class="form-section">
-      <label>Sua resposta:</label>
+      <label>{{ jogo.difficulty === 'HARD' ? 'Forme a palavra (use ' + jogo.word.length + ' letras):' : 'Forme a palavra (use todas as letras):' }}</label>
       <div class="current-answer">{{ currentAnswer || '...' }}</div>
 
       <label>Letras embaralhadas:</label>
@@ -29,7 +39,7 @@
       <div class="controls">
         <button class="btn-clear" [disabled]="sucesso" (click)="limpar()">Limpar</button>
         <button class="btn-enviar" [disabled]="!podeEnviar" (click)="enviar()">
-          {{ sucesso ? '✓ Acertou!' : 'Enviar' }}
+          {{ sucesso ? '✓ Acertou!' : 'Enviar Resposta' }}
         </button>
       </div>
     </div>

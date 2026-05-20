@@ -38,6 +38,12 @@ export class EmbaralharJogoComponent implements OnInit {
     });
   }
 
+  // ✅ NOVO: texto legível da dificuldade
+  get dificuldadeTexto(): string {
+    if (!this.jogo) return '';
+    return this.jogo.difficulty === 'HARD' ? 'Difícil' : 'Fácil';
+  }
+
   embaralharLetras() {
     let letters = this.jogo.word.toUpperCase().split('');
     if (this.jogo.difficulty === 'HARD') {
@@ -71,7 +77,9 @@ export class EmbaralharJogoComponent implements OnInit {
 
   get podeEnviar(): boolean {
     if (this.sucesso) return false;
-    const required = this.jogo?.difficulty === 'HARD' ? this.jogo.word.length : this.shuffledLetters.length;
+    const required = this.jogo?.difficulty === 'HARD'
+      ? this.jogo.word.length
+      : this.shuffledLetters.length;
     return this.currentAnswer.length === required;
   }
 
@@ -81,12 +89,18 @@ export class EmbaralharJogoComponent implements OnInit {
         this.sucesso = data.correct;
         this.attempt = data;
         this.mensagem = data.correct ? '🎉 Parabéns! Você acertou!' : '❌ Errado! Tente novamente.';
-        if (!data.correct) {
-          this.limpar();
-        }
+        if (!data.correct) this.limpar();
       },
       error: () => this.mensagem = 'Erro ao enviar resposta'
     });
+  }
+
+  // ✅ NOVO: autofalante
+  falar(texto: string) {
+    const msg = new SpeechSynthesisUtterance(texto);
+    msg.lang = 'pt-BR'; msg.rate = 0.9;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msg);
   }
 
   voltar() { this.router.navigate(['/embaralhar/aluno']); }

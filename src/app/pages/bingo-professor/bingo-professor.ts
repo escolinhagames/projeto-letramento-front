@@ -24,6 +24,8 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
   salaCriada = false;
   mensagem = '';
   mensagemTipo = '';
+  // ✅ NOVO: flag para evitar sala fantasma
+  criando = false;
   intervalo: any;
 
   animais: { [key: string]: string } = {
@@ -49,17 +51,18 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
   get cartelaGrid(): number[][] {
     const sorted = [...this.cartelaProfessor].sort((a, b) => a - b);
     const grid: number[][] = [];
-    for (let i = 0; i < 5; i++) {
-      grid.push(sorted.slice(i * 5, i * 5 + 5));
-    }
+    for (let i = 0; i < 5; i++) grid.push(sorted.slice(i * 5, i * 5 + 5));
     return grid;
   }
 
   criarSala() {
+    // ✅ NOVO: evita duplo clique
+    if (this.criando || this.salaCriada) return;
     if (!this.nomeProfessor.trim()) {
       this.mostrarMensagem('Por favor, insira seu nome', 'error');
       return;
     }
+    this.criando = true;
     this.bingoService.criarSala(this.nomeProfessor).subscribe({
       next: (data: any) => {
         this.codigoSala = data.codigo;
@@ -68,7 +71,10 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
         this.intervalo = setInterval(() => this.carregarSala(), 2000);
         this.mostrarMensagem(`Sala ${data.codigo} criada!`, 'success');
       },
-      error: () => this.mostrarMensagem('Erro ao criar sala', 'error')
+      error: () => {
+        this.mostrarMensagem('Erro ao criar sala', 'error');
+        this.criando = false;
+      }
     });
   }
 
@@ -80,6 +86,7 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
         this.totalAlunos = data.totalAlunos || 0;
         this.alunos = Array.from(data.alunos || []);
         this.cartelaProfessor = data.cartelaProfessor || [];
+        // ✅ CORRIGIDO: mostra o último número corretamente
         if (this.sorteados.length > 0) {
           this.numeroDisplay = String(this.sorteados[this.sorteados.length - 1]);
         }
@@ -90,15 +97,14 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
 
   verificarBingoAluno(nome: string) {
     this.bingoService.verificarBingo(this.codigoSala, nome).subscribe({
-      next: (data: any) => {
-        this.alunosBingo[nome] = data.bingo;
-      }
+      next: (data: any) => { this.alunosBingo[nome] = data.bingo; }
     });
   }
 
   sortear() {
     this.bingoService.sortearNumero(this.codigoSala).subscribe({
       next: (data: any) => {
+        // ✅ CORRIGIDO: atualiza número imediatamente após sortear, sem esperar o intervalo
         this.numeroDisplay = String(data.numero);
         this.totalSorteados = data.totalSorteados;
         this.sorteados = Array.from(data.sorteados || []);
@@ -127,12 +133,9 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
   }
 
   mostrarMensagem(msg: string, tipo: string) {
-    this.mensagem = msg;
-    this.mensagemTipo = tipo;
+    this.mensagem = msg; this.mensagemTipo = tipo;
     setTimeout(() => this.mensagem = '', 4000);
   }
 
-  voltar() {
-    this.router.navigate(['/dashboard']);
-  }
+  voltar() { this.router.navigate(['/dashboard']); }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -13,22 +13,33 @@ import { EmbaralharService } from '../../services/embaralhar.service';
 })
 export class EmbaralharProfessorComponent implements OnInit {
   jogos: any[] = [];
+  carregando = true;
   palavra = '';
   dificuldade = 'EASY';
   imagemSelecionada: File | null = null;
   mensagem = '';
   mensagemTipo = '';
 
-  constructor(private embaralharService: EmbaralharService, private router: Router) {}
+  constructor(
+    private embaralharService: EmbaralharService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  ngOnInit() {
-    this.carregarJogos();
-  }
+  ngOnInit() { this.carregarJogos(); }
 
   carregarJogos() {
+    this.carregando = true;
     this.embaralharService.listarJogosProfessor().subscribe({
-      next: (data) => this.jogos = data,
-      error: () => this.mostrarMensagem('Erro ao carregar jogos', 'error')
+      next: (data) => {
+        this.jogos = data;
+        this.carregando = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.mostrarMensagem('Erro ao carregar jogos', 'error');
+        this.carregando = false;
+      }
     });
   }
 
@@ -51,10 +62,15 @@ export class EmbaralharProfessorComponent implements OnInit {
     });
   }
 
-  desativar(id: number) {
-    this.embaralharService.desativarJogo(id).subscribe({
-      next: () => this.carregarJogos(),
-      error: () => this.mostrarMensagem('Erro ao desativar', 'error')
+  // ✅ CORRIGIDO: deletar permanente
+  deletar(id: number) {
+    if (!confirm('Deseja deletar este jogo permanentemente?')) return;
+    this.embaralharService.deletarJogo(id).subscribe({
+      next: () => {
+        this.mostrarMensagem('Jogo deletado!', 'success');
+        this.carregarJogos();
+      },
+      error: () => this.mostrarMensagem('Erro ao deletar', 'error')
     });
   }
 
@@ -63,8 +79,7 @@ export class EmbaralharProfessorComponent implements OnInit {
   }
 
   mostrarMensagem(msg: string, tipo: string) {
-    this.mensagem = msg;
-    this.mensagemTipo = tipo;
+    this.mensagem = msg; this.mensagemTipo = tipo;
     setTimeout(() => this.mensagem = '', 4000);
   }
 

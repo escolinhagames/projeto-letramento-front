@@ -27,17 +27,21 @@
   </div>
 
   <h2>Meus Jogos</h2>
-  <p *ngIf="jogos.length === 0" class="vazio">Nenhum jogo criado ainda.</p>
+  <p *ngIf="carregando" class="vazio">Carregando...</p>
+  <p *ngIf="!carregando && jogos.length === 0" class="vazio">Nenhum jogo criado ainda.</p>
 
-  <div class="games-grid">
+  <div class="games-grid" *ngIf="!carregando && jogos.length > 0">
     <div class="game-card" *ngFor="let jogo of jogos">
       <img [src]="'data:image/jpeg;base64,' + jogo.imagemBase64" alt="Jogo">
-      <h3>{{ jogo.palavra?.toUpperCase() }}</h3>
-      <p>{{ jogo.dificuldade === 'EASY' ? 'Fácil' : 'Difícil' }}</p>
-      <p>{{ jogo.criadoEm }}</p>
+      <div class="card-info">
+        <h3>{{ jogo.palavra?.toUpperCase() }}</h3>
+        <p>{{ jogo.dificuldade === 'EASY' ? 'Fácil' : 'Difícil' }}</p>
+        <p>{{ jogo.criadoEm }}</p>
+      </div>
       <div class="btn-group">
         <button class="btn-detalhes" (click)="verDetalhes(jogo.id)">Ver Detalhes</button>
-        <button class="btn-desativar" (click)="desativar(jogo.id)">Desativar</button>
+        <!-- ✅ CORRIGIDO: deletar permanente -->
+        <button class="btn-deletar" (click)="deletar(jogo.id)">🗑️ Deletar</button>
       </div>
     </div>
   </div>

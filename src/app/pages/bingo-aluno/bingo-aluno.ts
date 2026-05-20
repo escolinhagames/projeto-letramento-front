@@ -12,6 +12,8 @@ import { BingoService } from '../../services/bingo.service';
   styleUrls: ['./bingo-aluno.scss']
 })
 export class BingoAlunoComponent implements OnInit, OnDestroy {
+  // ✅ NOVO: lista de salas para o select
+  salasAtivas: { codigo: string; professor: string }[] = [];
   codigoSala = '';
   meuNome = '';
   cartela: number[] = [];
@@ -33,7 +35,13 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
 
   constructor(private bingoService: BingoService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // ✅ NOVO: carrega salas ativas ao entrar
+    this.bingoService.listarSalasAtivas().subscribe({
+      next: (salas) => this.salasAtivas = salas,
+      error: () => this.mostrarMensagem('Erro ao carregar salas', 'error')
+    });
+  }
 
   ngOnDestroy() {
     if (this.intervalo) clearInterval(this.intervalo);
@@ -45,12 +53,8 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
     return this.animais[`${intervalo}-${max}`] || '🦁';
   }
 
-  get cartelaOrdenada(): number[] {
-    return [...this.cartela].sort((a, b) => a - b);
-  }
-
   get cartelaGrid(): number[][] {
-    const sorted = this.cartelaOrdenada;
+    const sorted = [...this.cartela].sort((a, b) => a - b);
     const grid: number[][] = [];
     for (let i = 0; i < 5; i++) {
       grid.push(sorted.slice(i * 5, i * 5 + 5));
@@ -59,12 +63,13 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
   }
 
   get progresso(): number {
-    return this.cartela.length === 0 ? 0 : Math.round((this.numerosMarcados.size / this.cartela.length) * 100);
+    return this.cartela.length === 0 ? 0 :
+      Math.round((this.numerosMarcados.size / this.cartela.length) * 100);
   }
 
   entrarSala() {
     if (!this.codigoSala.trim() || !this.meuNome.trim()) {
-      this.mostrarMensagem('Preencha o código e seu nome', 'error');
+      this.mostrarMensagem('Selecione uma sala e digite seu nome', 'error');
       return;
     }
     this.bingoService.entrarSala(this.codigoSala, this.meuNome).subscribe({
@@ -99,9 +104,7 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
   }
 
   marcar(numero: number) {
-    if (!this.numerosSorteados.has(numero)) return;
-    if (this.ganhou) return;
-
+    if (!this.numerosSorteados.has(numero) || this.ganhou) return;
     if (this.numerosMarcados.has(numero)) {
       this.numerosMarcados.delete(numero);
       this.bingoService.desmarcarNumero(this.codigoSala, this.meuNome, numero).subscribe();
@@ -109,29 +112,20 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
       this.numerosMarcados.add(numero);
       this.bingoService.marcarNumero(this.codigoSala, this.meuNome, numero).subscribe();
     }
-
     if (this.numerosMarcados.size === this.cartela.length && !this.ganhou) {
       this.ganhou = true;
       this.bingoService.verificarBingo(this.codigoSala, this.meuNome).subscribe({
-        next: (data: any) => {
-          if (data.bingo) alert('🎉 BINGO! Você ganhou!');
-        }
+        next: (data: any) => { if (data.bingo) alert('🎉 BINGO! Você ganhou!'); }
       });
     }
   }
 
-  estaMarc(numero: number): boolean {
-    return this.numerosMarcados.has(numero);
-  }
-
-  estaSorteado(numero: number): boolean {
-    return this.numerosSorteados.has(numero);
-  }
+  estaMarc(n: number): boolean { return this.numerosMarcados.has(n); }
+  estaSorteado(n: number): boolean { return this.numerosSorteados.has(n); }
 
   falarNumero(numero: number) {
     const msg = new SpeechSynthesisUtterance(`Número ${numero}`);
-    msg.lang = 'pt-BR';
-    msg.rate = 0.9;
+    msg.lang = 'pt-BR'; msg.rate = 0.9;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(msg);
   }
@@ -144,8 +138,7 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
   }
 
   mostrarMensagem(msg: string, tipo: string) {
-    this.mensagem = msg;
-    this.mensagemTipo = tipo;
+    this.mensagem = msg; this.mensagemTipo = tipo;
     setTimeout(() => this.mensagem = '', 4000);
   }
 }

@@ -5,15 +5,27 @@
   </div>
 
   <h2>Jogos Disponíveis</h2>
-  <p *ngIf="mensagem" class="erro">{{ mensagem }}</p>
-  <p *ngIf="jogos.length === 0 && !mensagem" class="vazio">Nenhum jogo disponível no momento.</p>
 
-  <div class="games-grid">
+  <p *ngIf="carregando" class="vazio">Carregando jogos...</p>
+  <p *ngIf="!carregando && jogos.length === 0" class="vazio">Nenhum jogo disponível no momento.</p>
+  <p *ngIf="mensagem" class="erro">{{ mensagem }}</p>
+
+  <div class="games-grid" *ngIf="!carregando && jogos.length > 0">
+    <!-- ✅ igual ao aluno-imagem: cards com imagem e botão jogar -->
     <div class="game-card" *ngFor="let jogo of jogos">
       <img [src]="'data:image/jpeg;base64,' + jogo.imagemBase64" alt="Jogo">
-      <h3>Desafio #{{ jogo.id }}</h3>
-      <p>Adivinhe a palavra!</p>
-      <button class="btn-jogar" (click)="jogar(jogo.id)">Jogar →</button>
+      <div class="card-info">
+        <h3>Desafio #{{ jogo.id }}</h3>
+        <!-- ✅ NOVO: dificuldade visível com autofalante -->
+        <div class="dificuldade-row">
+          <span class="badge" [class]="'badge-' + (jogo.dificuldade || 'EASY').toLowerCase()">
+            {{ jogo.dificuldade === 'HARD' ? 'Difícil' : 'Fácil' }}
+          </span>
+          <button class="btn-audio" (click)="falar(jogo.dificuldade === 'HARD' ? 'Difícil' : 'Fácil')">🔊</button>
+        </div>
+        <p>Adivinhe a palavra!</p>
+        <button class="btn-jogar" (click)="jogar(jogo.id)">Jogar →</button>
+      </div>
     </div>
   </div>
 </div>

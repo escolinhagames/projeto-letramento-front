@@ -25,8 +25,9 @@ export class EmbaralharService {
     return this.http.post(`${this.API}/professor/criar-jogo`, formData);
   }
 
-  desativarJogo(id: number): Observable<any> {
-    return this.http.post(`${this.API}/professor/desativar/${id}`, {});
+  // ✅ CORRIGIDO: deletar permanente
+  deletarJogo(id: number): Observable<any> {
+    return this.http.delete(`${this.API}/professor/deletar/${id}`);
   }
 
   obterJogo(id: number): Observable<any> {

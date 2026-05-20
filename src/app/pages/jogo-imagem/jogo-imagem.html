@@ -1,5 +1,13 @@
 <div class="container" *ngIf="sala">
 
+  <!-- ✅ NOVO: nível com autofalante -->
+  <div class="nivel-row">
+    <span class="badge" [class]="'badge-' + sala.dificuldade?.toLowerCase()">
+      {{ sala.dificuldade === 'FACIL' ? 'Fácil' : sala.dificuldade === 'MEDIO' ? 'Médio' : 'Difícil' }}
+    </span>
+    <button class="btn-audio" (click)="falarDificuldade()">🔊</button>
+  </div>
+
   <div class="dica">
     <div class="letra-box">{{ sala.dica }}</div>
     <button (click)="falarLetra()" class="btn-audio">🔊</button>
@@ -25,7 +33,6 @@
     Confirmar
   </button>
 
-  <!-- Modal de acerto -->
   <div *ngIf="resultado === 'acerto'" class="modal-overlay">
     <div class="modal">
       <h2>🎉 Parabéns!</h2>
@@ -33,5 +40,4 @@
       <button (click)="voltarParaSalas()">OK</button>
     </div>
   </div>
-
 </div>

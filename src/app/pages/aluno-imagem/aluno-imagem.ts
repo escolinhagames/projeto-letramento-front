@@ -18,7 +18,7 @@ export class AlunoImagemComponent implements OnInit {
   constructor(
     private service: JogoImagemService,
     private router: Router,
-    private cdr: ChangeDetectorRef // 🔥 adicione
+    private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -28,15 +28,21 @@ export class AlunoImagemComponent implements OnInit {
       console.error('Erro ao carregar salas:', e);
     } finally {
       this.carregando = false;
-      this.cdr.detectChanges(); // 🔥 força atualização da tela
+      this.cdr.detectChanges();
     }
   }
 
-  entrar(id: number) {
-    this.router.navigate(['/jogo-imagem', id]);
+  // ✅ NOVO: fala a dificuldade da sala
+  falarDificuldade(sala: any) {
+    const d = sala.dificuldade || '';
+    const texto = d === 'FACIL' ? 'Fácil' : d === 'MEDIO' ? 'Médio' : 'Difícil';
+    const msg = new SpeechSynthesisUtterance(texto);
+    msg.lang = 'pt-BR'; msg.rate = 0.9;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msg);
   }
 
-  voltar() {
-    this.router.navigate(['/aluno-dashboard']);
-  }
+  entrar(id: number) { this.router.navigate(['/jogo-imagem', id]); }
+
+  voltar() { this.router.navigate(['/aluno-dashboard']); }
 }

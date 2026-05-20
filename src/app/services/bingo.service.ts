@@ -82,4 +82,10 @@ export class BingoService {
   encerrarSala(codigo: string): Observable<{ mensagem: string }> {
     return this.http.post<{ mensagem: string }>(`${this.API}/${codigo}/encerrar`, {});
   }
+
+  listarSalasAtivas(): Observable<{ codigo: string; professor: string }[]> {
+    return this.http.get<{ codigo: string; professor: string }[]>(
+        `${this.API}/ativas`
+    );
+  }
 }
