@@ -1,19 +1,17 @@
 <div class="container">
-
   <div class="top">
     <span class="back" (click)="voltar()">⬅</span>
-
     <div class="audio" (click)="falarInstrucao()">🔊</div>
   </div>
 
   <div class="box">
-    <h2>Login</h2>
+    <h2>🐱 Login Professor</h2>
 
     <input type="email" placeholder="Email" [(ngModel)]="email">
     <input type="password" placeholder="Senha" [(ngModel)]="senha">
 
     <button (click)="login()">Entrar</button>
 
-    <p (click)="irCadastro()">Cadastre-se</p>
+    <p (click)="irCadastro()">Não possui cadastro? Cadastre-se</p>
   </div>
 </div>
