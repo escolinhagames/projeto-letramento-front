@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EmbaralharService } from '../../services/embaralhar.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-embaralhar-professor',
@@ -75,8 +76,9 @@ export class EmbaralharProfessorComponent implements OnInit {
   }
 
   verDetalhes(id: number) {
-    this.router.navigate(['/embaralhar/professor/detalhes', id]);
-  }
+  // ✅ CORRIGIDO: abre direto no Railway onde a página Thymeleaf existe
+  window.open(`${environment.apiUrl}/embaralhar/professor/detalhes/${id}`, '_blank');
+}
 
   mostrarMensagem(msg: string, tipo: string) {
     this.mensagem = msg; this.mensagemTipo = tipo;

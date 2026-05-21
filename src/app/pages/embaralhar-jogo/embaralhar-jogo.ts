@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EmbaralharService } from '../../services/embaralhar.service';
@@ -18,12 +18,12 @@ export class EmbaralharJogoComponent implements OnInit {
   currentAnswer = '';
   mensagem = '';
   sucesso = false;
-  attempt: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private embaralharService: EmbaralharService
+    private embaralharService: EmbaralharService,
+    private cdr: ChangeDetectorRef // ✅ ADICIONADO
   ) {}
 
   ngOnInit() {
@@ -33,12 +33,12 @@ export class EmbaralharJogoComponent implements OnInit {
         this.jogo = data;
         this.imageBase64 = data.imagemBase64;
         this.embaralharLetras();
+        this.cdr.detectChanges(); // ✅ ADICIONADO
       },
       error: () => this.router.navigate(['/embaralhar/aluno'])
     });
   }
 
-  // ✅ NOVO: texto legível da dificuldade
   get dificuldadeTexto(): string {
     if (!this.jogo) return '';
     return this.jogo.difficulty === 'HARD' ? 'Difícil' : 'Fácil';
@@ -67,12 +67,14 @@ export class EmbaralharJogoComponent implements OnInit {
     if (this.usedIndexes.includes(index) || this.sucesso) return;
     this.currentAnswer += this.shuffledLetters[index];
     this.usedIndexes.push(index);
+    this.cdr.detectChanges(); // ✅ ADICIONADO
   }
 
   limpar() {
     if (this.sucesso) return;
     this.currentAnswer = '';
     this.usedIndexes = [];
+    this.cdr.detectChanges(); // ✅ ADICIONADO
   }
 
   get podeEnviar(): boolean {
@@ -87,15 +89,16 @@ export class EmbaralharJogoComponent implements OnInit {
     this.embaralharService.enviarResposta(this.jogo.id, this.currentAnswer).subscribe({
       next: (data: any) => {
         this.sucesso = data.correct;
-        this.attempt = data;
-        this.mensagem = data.correct ? '🎉 Parabéns! Você acertou!' : '❌ Errado! Tente novamente.';
+        this.mensagem = data.correct
+          ? '🎉 Parabéns! Você acertou!'
+          : '❌ Errado! Tente novamente.';
         if (!data.correct) this.limpar();
+        this.cdr.detectChanges(); // ✅ ADICIONADO
       },
       error: () => this.mensagem = 'Erro ao enviar resposta'
     });
   }
 
-  // ✅ NOVO: autofalante
   falar(texto: string) {
     const msg = new SpeechSynthesisUtterance(texto);
     msg.lang = 'pt-BR'; msg.rate = 0.9;
