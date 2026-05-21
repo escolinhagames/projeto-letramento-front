@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -33,7 +33,7 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
     '61-70': '🐯', '71-80': '🦁', '81-90': '🐘', '91-100': '🦒'
   };
 
-  constructor(private bingoService: BingoService, private router: Router) {}
+  constructor(private bingoService: BingoService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     // ✅ NOVO: carrega salas ativas ao entrar
@@ -99,6 +99,7 @@ export class BingoAlunoComponent implements OnInit, OnDestroy {
           this.numeroDisplay = '-';
           this.ultimoNumeroSorteado = null;
         }
+        this.cdr.detectChanges();
       }
     });
   }

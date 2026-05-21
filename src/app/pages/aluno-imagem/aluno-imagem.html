@@ -5,23 +5,16 @@
   </div>
 
   <p *ngIf="carregando">Carregando salas...</p>
-  <p *ngIf="!carregando && salas.length === 0" class="vazio">Nenhuma sala disponível no momento.</p>
+
+  <p *ngIf="!carregando && salas.length === 0" class="vazio">
+    Nenhuma sala disponível no momento.
+  </p>
 
   <div class="salas-grid" *ngIf="!carregando && salas.length > 0">
-    <div class="sala-card" *ngFor="let sala de salas">
-      <img [src]="'data:image/jpeg;base64,' + sala.imagem1" alt="Imagem" class="sala-imagem">
-      <div class="sala-body">
-        <!-- ✅ NOVO: nome do professor -->
-        <h3>Prof. {{ sala.nomeProfessor }}</h3>
-        <!-- ✅ NOVO: dificuldade com autofalante -->
-        <div class="nivel-row">
-          <span class="badge" [class]="'badge-' + sala.dificuldade?.toLowerCase()">
-            {{ sala.dificuldade === 'FACIL' ? 'Fácil' : sala.dificuldade === 'MEDIO' ? 'Médio' : 'Difícil' }}
-          </span>
-          <button class="btn-audio" (click)="falarDificuldade(sala)">🔊</button>
-        </div>
-        <button (click)="entrar(sala.id)" class="btn-entrar">Entrar →</button>
-      </div>
+    <div class="sala-card" *ngFor="let sala of salas">
+      <h3>Sala #{{ sala.id }}</h3>
+      <p>Clique para entrar e jogar!</p>
+      <button (click)="entrar(sala.id)" class="btn-entrar">Entrar →</button>
     </div>
   </div>
 </div>

@@ -86,9 +86,13 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
         this.totalAlunos = data.totalAlunos || 0;
         this.alunos = Array.from(data.alunos || []);
         this.cartelaProfessor = data.cartelaProfessor || [];
-        // ✅ CORRIGIDO: mostra o último número corretamente
+        // ✅ CORRIGIDO: só atualiza display pelo intervalo se não houve sorteio manual recente
         if (this.sorteados.length > 0) {
-          this.numeroDisplay = String(this.sorteados[this.sorteados.length - 1]);
+          const ultimo = String(this.sorteados[this.sorteados.length - 1]);
+          // só atualiza se o display ainda está em '-' (início do jogo)
+          if (this.numeroDisplay === '-') {
+            this.numeroDisplay = ultimo;
+          }
         }
         this.alunos.forEach(aluno => this.verificarBingoAluno(aluno));
       }
@@ -104,7 +108,7 @@ export class BingoProfessorComponent implements OnInit, OnDestroy {
   sortear() {
     this.bingoService.sortearNumero(this.codigoSala).subscribe({
       next: (data: any) => {
-        // ✅ CORRIGIDO: atualiza número imediatamente após sortear, sem esperar o intervalo
+        // ✅ CORRIGIDO: atualiza tudo direto da resposta do sortear
         this.numeroDisplay = String(data.numero);
         this.totalSorteados = data.totalSorteados;
         this.sorteados = Array.from(data.sorteados || []);

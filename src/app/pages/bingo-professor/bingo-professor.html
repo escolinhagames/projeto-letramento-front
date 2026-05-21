@@ -11,7 +11,9 @@
     <h2>1. Criar Sala</h2>
     <div class="form-group">
       <input type="text" [(ngModel)]="nomeProfessor" placeholder="Seu nome">
-      <button class="btn-primary" (click)="criarSala()">Criar Sala</button>
+      <button class="btn-primary" (click)="criarSala()" [disabled]="criando">
+        {{ criando ? 'Criando...' : 'Criar Sala' }}
+      </button>
     </div>
   </div>
 

@@ -32,17 +32,11 @@ export class AlunoImagemComponent implements OnInit {
     }
   }
 
-  // ✅ NOVO: fala a dificuldade da sala
-  falarDificuldade(sala: any) {
-    const d = sala.dificuldade || '';
-    const texto = d === 'FACIL' ? 'Fácil' : d === 'MEDIO' ? 'Médio' : 'Difícil';
-    const msg = new SpeechSynthesisUtterance(texto);
-    msg.lang = 'pt-BR'; msg.rate = 0.9;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(msg);
+  entrar(id: number) {
+    this.router.navigate(['/jogo-imagem', id]);
   }
 
-  entrar(id: number) { this.router.navigate(['/jogo-imagem', id]); }
-
-  voltar() { this.router.navigate(['/aluno-dashboard']); }
+  voltar() {
+    this.router.navigate(['/aluno-dashboard']);
+  }
 }

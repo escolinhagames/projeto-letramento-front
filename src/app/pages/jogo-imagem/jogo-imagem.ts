@@ -39,31 +39,33 @@ export class JogoImagemComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  embaralhar(arr: any[]) { return arr.sort(() => Math.random() - 0.5); }
+  embaralhar(arr: any[]) {
+    return arr.sort(() => Math.random() - 0.5);
+  }
 
   selecionar(index: number) {
     if (this.resultado === 'acerto') return;
     this.selecionada = index;
   }
 
-  falarLetra() { this.falar(this.sala?.dica || ''); }
-
-  // ✅ NOVO: fala a dificuldade
-  falarDificuldade() {
-    const d = this.sala?.dificuldade || '';
-    const texto = d === 'FACIL' ? 'Fácil' : d === 'MEDIO' ? 'Médio' : 'Difícil';
-    this.falar(texto);
+  falarLetra() {
+    const dica = this.sala?.dica || '';
+    this.falar(dica);
   }
 
   falar(texto: string) {
     const msg = new SpeechSynthesisUtterance(texto);
-    msg.lang = 'pt-BR'; msg.rate = 0.9;
+    msg.lang = 'pt-BR';
+    msg.rate = 0.9;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(msg);
   }
 
   confirmar() {
-    if (this.selecionada === null) { alert('Selecione uma imagem primeiro'); return; }
+    if (this.selecionada === null) {
+      alert('Selecione uma imagem primeiro');
+      return;
+    }
     const correta = this.imagens[this.selecionada].correta;
     if (correta) {
       this.resultado = 'acerto';
@@ -71,9 +73,14 @@ export class JogoImagemComponent implements OnInit {
     } else {
       this.resultado = 'erro';
       this.falar('Tente novamente');
-      setTimeout(() => { this.selecionada = null; this.resultado = null; }, 2000);
+      setTimeout(() => {
+        this.selecionada = null;
+        this.resultado = null;
+      }, 2000);
     }
   }
 
-  voltarParaSalas() { this.router.navigate(['/aluno-imagem']); }
+  voltarParaSalas() {
+    this.router.navigate(['/aluno-imagem']);
+  }
 }

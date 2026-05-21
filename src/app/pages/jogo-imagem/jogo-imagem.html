@@ -1,13 +1,5 @@
 <div class="container" *ngIf="sala">
 
-  <!-- ✅ NOVO: nível com autofalante -->
-  <div class="nivel-row">
-    <span class="badge" [class]="'badge-' + sala.dificuldade?.toLowerCase()">
-      {{ sala.dificuldade === 'FACIL' ? 'Fácil' : sala.dificuldade === 'MEDIO' ? 'Médio' : 'Difícil' }}
-    </span>
-    <button class="btn-audio" (click)="falarDificuldade()">🔊</button>
-  </div>
-
   <div class="dica">
     <div class="letra-box">{{ sala.dica }}</div>
     <button (click)="falarLetra()" class="btn-audio">🔊</button>
