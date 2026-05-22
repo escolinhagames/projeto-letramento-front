@@ -58,6 +58,15 @@
         </div>
       </div>
     </div>
+    <!-- ✅ NOVO: pop-up de vitória bingo -->
+    <div class="modal-overlay" *ngIf="ganhou">
+      <div class="modal-vitoria">
+        <div class="modal-emoji">🎊</div>
+        <h2>BINGO!</h2>
+        <p>Parabéns! Você completou sua cartela!</p>
+        <button class="btn-ok" (click)="sair()">OK</button>
+      </div>
+    </div>
 
     <button class="btn-sair" (click)="sair()">Sair da Sala</button>
   </div>

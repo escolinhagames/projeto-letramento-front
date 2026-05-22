@@ -9,7 +9,6 @@
       <img [src]="'data:image/jpeg;base64,' + imageBase64" alt="Imagem do desafio">
     </div>
 
-    <!-- ✅ NOVO: nível com autofalante -->
     <div class="nivel-row">
       <span class="badge" [class]="'badge-' + (jogo.difficulty || 'EASY').toLowerCase()">
         {{ dificuldadeTexto }}
@@ -17,9 +16,7 @@
       <button class="btn-audio" (click)="falar(dificuldadeTexto)">🔊</button>
     </div>
 
-    <div *ngIf="mensagem" [class]="'alert ' + (sucesso ? 'alert-success' : 'alert-error')">
-      {{ mensagem }}
-    </div>
+    <div *ngIf="mensagem && !sucesso" class="alert alert-error">{{ mensagem }}</div>
 
     <div class="form-section">
       <label>{{ jogo.difficulty === 'HARD' ? 'Forme a palavra (use ' + jogo.word.length + ' letras):' : 'Forme a palavra (use todas as letras):' }}</label>
@@ -39,9 +36,18 @@
       <div class="controls">
         <button class="btn-clear" [disabled]="sucesso" (click)="limpar()">Limpar</button>
         <button class="btn-enviar" [disabled]="!podeEnviar" (click)="enviar()">
-          {{ sucesso ? '✓ Acertou!' : 'Enviar Resposta' }}
+          Enviar Resposta
         </button>
       </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="sucesso">
+    <div class="modal-vitoria">
+      <div class="modal-emoji">🎉</div>
+      <h2>Parabéns!</h2>
+      <p>Você acertou a palavra!</p>
+      <button class="btn-ok" (click)="voltar()">OK</button>
     </div>
   </div>
 </div>
