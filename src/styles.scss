@@ -4,4 +4,8 @@ html, body {
   height: 100%;
   background-color: #4CAF50;
   overflow: hidden;
+  font-size: clamp(12px, 1.8vw, 16px);
+}
+* {
+  box-sizing: border-box;
 }

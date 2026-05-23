@@ -10,7 +10,8 @@
 }
 
 .container {
-  max-width: 560px;
+  max-width: min(560px, 100%);
+  width: 100%;
   margin: 0 auto;
   background: white;
   border-radius: 15px;
