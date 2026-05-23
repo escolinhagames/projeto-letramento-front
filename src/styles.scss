@@ -1,11 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap');
+
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  background-color: #4CAF50;
-  overflow: hidden;
+  min-height: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-size: clamp(12px, 1.8vw, 16px);
+  font-family: 'Baloo 2', cursive;
 }
-* {
-  box-sizing: border-box;
+
+* { box-sizing: border-box; }
+
+app-root {
+  display: block;
+  min-height: 100vh;
 }
