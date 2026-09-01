@@ -32,20 +32,15 @@ export class AlunoImagemComponent implements OnInit {
     }
   }
 
-  entrar(id: number) {
-    this.router.navigate(['/jogo-imagem', id]);
-  }
-
-  voltar() {
-    this.router.navigate(['/aluno-dashboard']);
-  }
-
   falarProfessor(sala: any) {
     const nome = sala.nomeProfessor || 'Professor';
     const msg = new SpeechSynthesisUtterance(`Professor ${nome}`);
-    msg.lang = 'pt-BR';
-    msg.rate = 0.9;
+    msg.lang = 'pt-BR'; msg.rate = 0.9;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(msg);
   }
+
+  entrar(id: number) { this.router.navigate(['/jogo-imagem', id]); }
+
+  voltar() { this.router.navigate(['/aluno-dashboard']); }
 }

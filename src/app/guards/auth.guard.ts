@@ -16,11 +16,15 @@ export const authGuard: CanActivateFn = (route) => {
     }
   }
 
-  // Rotas exclusivas de professor
-  if (rota === 'dashboard' || rota === 'professor' || rota.startsWith('professor/')) {
+  const rotasProfessor = [
+    'dashboard', 'professor', 'bingo/professor',
+    'embaralhar/professor', 'professor-imagem'
+  ];
+
+  if (rotasProfessor.some(r => rota.startsWith(r))) {
     if (!token || tipoUsuario !== 'professor') {
       alert('Acesso permitido apenas para professores logados');
-      return router.parseUrl('/login'); // 🔥 troca navigate por parseUrl
+      return router.parseUrl('/login');
     }
   }
 

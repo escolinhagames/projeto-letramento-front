@@ -12,14 +12,17 @@
 
   <div class="salas-grid" *ngIf="!carregando && salas.length > 0">
     <div class="sala-card" *ngFor="let sala of salas">
-      <!-- ✅ NOVO: nome do professor com autofalante -->
-      <div class="professor-row">
-        <span class="professor-nome">👨‍🏫 Prof. {{ sala.nomeProfessor || 'Professor' }}</span>
-        <button class="btn-audio-mini" (click)="falarProfessor(sala)">🔊</button>
+      <div class="sala-thumb">❓</div>
+
+      <div class="sala-body">
+        <div class="professor-row">
+          <span class="professor-nome">👨‍🏫 Prof. {{ sala.nomeProfessor || 'Professor' }}</span>
+          <button class="btn-audio" (click)="falarProfessor(sala)">🔊</button>
+        </div>
+        <h3>Sala #{{ sala.id }}</h3>
+        <p>Clique para entrar e jogar!</p>
+        <button (click)="entrar(sala.id)" class="btn-entrar">Entrar →</button>
       </div>
-      <h3>Sala #{{ sala.id }}</h3>
-      <p>Clique para entrar e jogar!</p>
-      <button (click)="entrar(sala.id)" class="btn-entrar">Entrar →</button>
     </div>
   </div>
 </div>

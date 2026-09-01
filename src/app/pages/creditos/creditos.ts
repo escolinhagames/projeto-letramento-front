@@ -10,15 +10,11 @@ import { CommonModule } from '@angular/common';
 })
 export class CreditosComponent {
   creditos = [
-    'Lucas Samuel Gomes Freire Barbosa',
     'Carlos Eduardo Dias Jesus',
+    'Lucas Samuel Gomes Freire Barbosa',
     'Vinicius Henrique Ferraroni Novais',
-    'Kayke Alves Cavalcanti',
-    'Kelvin da Silva Reis',
-    'Leonardo das Chagas',
     'Matheus Pereira Feitoza da Silva',
-    'Nadia Isabel Barahona Canhete',
-    'Professor: João Roberto Ursino da Cruz'
+    'Nadia Isabel Barahona Canhete'
 
   ];
 

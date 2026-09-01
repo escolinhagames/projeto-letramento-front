@@ -9,12 +9,12 @@
       <img [src]="'data:image/jpeg;base64,' + imageBase64" alt="Imagem do desafio">
     </div>
 
-    <div class="nivel-row">
+    <!-- <div class="nivel-row">
       <span class="badge" [class]="'badge-' + (jogo.difficulty || 'EASY').toLowerCase()">
         {{ dificuldadeTexto }}
       </span>
       <button class="btn-audio" (click)="falar(dificuldadeTexto)">🔊</button>
-    </div>
+    </div> -->
 
     <div *ngIf="mensagem && !sucesso" class="alert alert-error">{{ mensagem }}</div>
 

@@ -7,32 +7,28 @@
   <h2>Escolha um Jogo para Jogar:</h2>
 
   <div class="games-grid">
-    <!-- Bingo Card -->
-    <div class="game-card" (click)="selecionarJogo(1)" title="Clique para jogar Bingo">
+    <div class="game-card" (click)="selecionarJogo(1)">
       <h3>🎲 Bingo</h3>
       <p>Jogo clássico de bingo com cartelas</p>
-      <span class="status disponivel">Disponível</span>
+      <button class="btn-audio" (click)="falar('Bingo', $event)">🔊</button>
     </div>
 
-    <!-- Embaralhar Card -->
-    <div class="game-card" (click)="selecionarJogo(2)" title="Clique para jogar Embaralhar">
+    <div class="game-card" (click)="selecionarJogo(2)">
       <h3>🔤 Embaralhar</h3>
       <p>Adivinhe a palavra pela imagem</p>
-      <span class="status disponivel">Disponível</span>
+      <button class="btn-audio" (click)="falar('Embaralhar', $event)">🔊</button>
     </div>
 
-    <!-- Memória Card -->
-    <div class="game-card" (click)="selecionarJogo(3)" title="Clique para jogar Memória">
+    <div class="game-card" (click)="selecionarJogo(3)">
       <h3>🧠 Memória</h3>
       <p>Encontre os pares corretos</p>
-      <span class="status disponivel">Disponível</span>
+      <button class="btn-audio" (click)="falar('Jogo da Memória', $event)">🔊</button>
     </div>
 
-    <!-- Game 4 Card (Disabled) -->
-    <div class="game-card" (click)="selecionarJogo(4)" title="Acerte a letra">
-      <h2>Acerte a letra</h2>
+    <div class="game-card" (click)="selecionarJogo(4)">
+      <h3>🖼️ Acerte a letra</h3>
       <p>Adivinhe a imagem pela dica de letras</p>
-      <span class="status disponivel">Disponível</span>
+      <button class="btn-audio" (click)="falar('Acerte a letra', $event)">🔊</button>
     </div>
   </div>
 </div>

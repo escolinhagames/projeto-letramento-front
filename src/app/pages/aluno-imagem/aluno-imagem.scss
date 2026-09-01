@@ -25,7 +25,8 @@
   margin-bottom: 40px;
   border-bottom: 2px solid #4ECDC4;
   padding-bottom: 20px;
-  h1 { color: #4ECDC4; font-size: 2rem; }
+
+  h1 { color: #4ECDC4; font-size: clamp(1.2rem, 4vw, 2rem); }
 }
 
 .btn-voltar {
@@ -36,46 +37,60 @@
 }
 
 .carregando, .vazio {
-  text-align: center; color: #999; padding: 40px; font-size: 1.1rem;
+  text-align: center; color: #999;
+  padding: 40px; font-size: 1.1rem;
 }
 
 .salas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
 }
 
 .sala-card {
-  border: 2px solid #4ECDC4; border-radius: 10px; overflow: hidden;
+  border: 2px solid #4ECDC4;
+  border-radius: 10px;
+  overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
   &:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 }
 
-.sala-imagem { width: 100%; height: 160px; object-fit: cover; }
+.sala-thumb {
+  width: 100%;
+  height: 140px;
+  background: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
 
 .sala-body { padding: 15px; text-align: center; }
 
-.sala-body h3 { color: #4ECDC4; margin-bottom: 10px; }
-
-// ✅ NOVO: linha de nível
-.nivel-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; margin-bottom: 12px;
+.professor-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
-.badge {
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 0.85rem; font-weight: bold;
-  &-facil { background: #d4edda; color: #155724; }
-  &-medio { background: #fff3cd; color: #856404; }
-  &-dificil { background: #f8d7da; color: #721c24; }
+.professor-nome {
+  font-weight: bold;
+  color: #4ECDC4;
+  font-size: 0.9rem;
 }
 
 .btn-audio {
   background: #4CAF50; color: white;
   border: none; border-radius: 6px;
-  padding: 4px 8px; font-size: 0.9rem; cursor: pointer;
+  padding: 3px 8px; font-size: 0.85rem; cursor: pointer;
+  &:hover { background: #388E3C; }
 }
+
+.sala-body h3 { color: #333; margin-bottom: 6px; }
+
+.sala-body p { color: #999; margin-bottom: 12px; font-size: 0.9rem; }
 
 .btn-entrar {
   background: #4ECDC4; color: white;
@@ -85,27 +100,7 @@
   &:hover { background: #44A3A0; }
 }
 
-.professor-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.professor-nome {
-  font-weight: bold;
-  color: #4ECDC4;
-  font-size: 0.95rem;
-}
-
-.btn-audio-mini {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 3px 8px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  &:hover { background: #388E3C; }
+@media (max-width: 768px) {
+  .container { padding: 20px; }
+  .salas-grid { grid-template-columns: repeat(2, 1fr); }
 }

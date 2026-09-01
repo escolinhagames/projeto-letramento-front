@@ -1,3 +1,11 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #4CAF50;
+  padding: 20px;
+  overflow-y: auto;
+}
+
 .creditos-page {
   display: flex;
   justify-content: center;
@@ -6,7 +14,7 @@
 
 .creditos-card {
   width: min(720px, 100%);
-  background: #fff;
+  background: #43A047;
   border-radius: 16px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
   padding: 28px;
@@ -15,11 +23,12 @@
 .creditos-card h2 {
   margin-bottom: 0.75rem;
   font-size: 2rem;
+  color: #fff;
 }
 
 .creditos-card p {
   margin-bottom: 1rem;
-  color: #555;
+  color: #2a2a2a;
 }
 
 .creditos-card ul {

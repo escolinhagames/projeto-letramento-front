@@ -1,47 +1,47 @@
-<div class="container">
-  <h2>Bem-vindo, {{nome}}</h2>
-  <p>Escolha um jogo para jogar:</p>
-
-  <div class="top-actions">
-    <button class="btn-creditos" routerLink="/creditos">Créditos</button>
-    <button class="btn-nova" (click)="abrirModal()">+ Nova Palavra</button>
+<div class="dashboard-container">
+  <div class="header">
+    <h2>Bem-vindo, {{ nome }}</h2>
+    <div class="header-actions">
+      <!-- <button class="btn-nova" (click)="abrirModal()">+ Nova Palavra</button> -->
+      <button class="btn-creditos" routerLink="/creditos">Créditos</button>
+      <button class="btn-logout" (click)="logout()">Sair</button>
+    </div>
   </div>
+
+  <p class="subtitulo">Crie uma sala para os alunos:</p>
+
   <div class="grid">
     <div class="item" (click)="selecionarJogo(1)">
-      <h3>Bingo</h3>
+      <h3>🎲 Bingo</h3>
       <p>Jogo clássico de bingo com cartelas</p>
-      <span class="status">Disponível</span>
+      <button class="btn-audio" (click)="falar('Bingo', $event)">🔊</button>
     </div>
 
     <div class="item" (click)="selecionarJogo(2)">
-      <h3>Embaralhar</h3>
+      <h3>🔤 Embaralhar</h3>
       <p>Adivinhe a palavra pela imagem</p>
-      <span class="status">Disponível</span>
+      <button class="btn-audio" (click)="falar('Embaralhar', $event)">🔊</button>
     </div>
 
     <div class="item" (click)="selecionarJogo(3)">
-      <h3>Memória</h3>
+      <h3>🧠 Memória</h3>
       <p>Encontre os pares corretos</p>
-      <span class="status">Disponível</span>
+      <button class="btn-audio" (click)="falar('Memória', $event)">🔊</button>
     </div>
 
     <div class="item" (click)="selecionarJogo(4)">
-      <h2>Imagem</h2>
+      <h3>🖼️ Imagem</h3>
       <p>Crie salas com imagens para os alunos adivinharem</p>
-      <span class="status">Disponível</span>
+      <button class="btn-audio" (click)="falar('Jogo da Imagem', $event)">🔊</button>
     </div>
   </div>
-
-  <button (click)="logout()" class="btn-logout">Sair</button>
 </div>
+
 <div class="modal" *ngIf="modalAberto">
   <div class="modal-content">
     <h3>Nova Palavra</h3>
-
     <input type="text" id="palavra" placeholder="Digite a palavra">
-
     <input type="file" id="imagem">
-
     <button (click)="salvarPalavra()">Salvar</button>
     <button (click)="fecharModal()">Cancelar</button>
   </div>

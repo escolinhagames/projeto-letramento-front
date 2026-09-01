@@ -23,34 +23,23 @@ export class DashboardComponent implements OnInit {
     this.nome = localStorage.getItem('nome') || '';
   }
 
-  abrirModal() {
-    this.modalAberto = true;
+  falar(texto: string, event?: Event) {
+    if (event) event.stopPropagation();
+    window.speechSynthesis.cancel();
+    const msg = new SpeechSynthesisUtterance(texto);
+    msg.lang = 'pt-BR';
+    msg.rate = 0.85;
+    window.speechSynthesis.speak(msg);
   }
 
-  fecharModal() {
-    this.modalAberto = false;
-  }
+  abrirModal() { this.modalAberto = true; }
+  fecharModal() { this.modalAberto = false; }
 
   selecionarJogo(jogo: number) {
-    if (jogo === 1) {
-      // ✅ ALTERADO: era window.location.href para o Railway, agora navega no Angular
-      this.router.navigate(['/bingo/professor']);
-      return;
-    }
-    if (jogo === 2) {
-      // ✅ ALTERADO: era window.location.href para o Railway, agora navega no Angular
-      this.router.navigate(['/embaralhar/professor']);
-      return;
-    }
-    if (jogo === 3) {
-      this.router.navigate(['/memorizacao']);
-      return;
-    }
-    if (jogo === 4) {
-      this.router.navigate(['/professor-imagem']);
-      return;
-    }
-    alert('Esse jogo ainda não está disponível.');
+    if (jogo === 1) { this.router.navigate(['/bingo/professor']); return; }
+    if (jogo === 2) { this.router.navigate(['/embaralhar/professor']); return; }
+    if (jogo === 3) { this.router.navigate(['/memorizacao']); return; }
+    if (jogo === 4) { this.router.navigate(['/professor-imagem']); return; }
   }
 
   logout() {
@@ -64,7 +53,7 @@ export class DashboardComponent implements OnInit {
     const token = localStorage.getItem('token') || '';
     const professorId = localStorage.getItem('professorId') || '1';
 
-    if (!palavraInput?.value || imagemInput?.files?.length === 0) {
+    if (!palavraInput?.value || !imagemInput?.files?.length) {
       alert('Preencha tudo');
       return;
     }
@@ -79,15 +68,9 @@ export class DashboardComponent implements OnInit {
         headers: { Authorization: `Bearer ${token}` },
         body: formData
       });
-
-      if (response.ok) {
-        alert('Salvo com sucesso');
-        this.fecharModal();
-      } else {
-        alert('Erro: ' + response.status);
-      }
+      if (response.ok) { alert('Salvo com sucesso'); this.fecharModal(); }
+      else alert('Erro: ' + response.status);
     } catch (e) {
-      console.error(e);
       alert('Erro ao salvar palavra');
     }
   }

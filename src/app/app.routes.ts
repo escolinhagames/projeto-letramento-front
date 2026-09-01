@@ -47,6 +47,14 @@ export const routes: Routes = [
       import('./detalhes-jogo/detalhes-jogo').then(m => m.DetalhesJogoComponent)
   },
 
+  {
+  path: 'embaralhar/professor/detalhes/:id',
+  canActivate: [authGuard],
+  loadComponent: () =>
+    import('./pages/embaralhar-professor/embaralhar-professor')
+      .then(m => m.EmbaralharProfessorComponent)
+  },
+
   // 👨‍🎓 ALUNO
   {
     path: 'aluno',
