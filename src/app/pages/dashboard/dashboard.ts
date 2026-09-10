@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
     if (jogo === 2) { this.router.navigate(['/embaralhar/professor']); return; }
     if (jogo === 3) { this.router.navigate(['/memorizacao']); return; }
     if (jogo === 4) { this.router.navigate(['/professor-imagem']); return; }
+    if (jogo === 5) { this.router.navigate(['/matematica/professor']); return; }
   }
 
   logout() {

@@ -1,0 +1,64 @@
+<div class="wrapper">
+  <div class="card">
+    <div class="header">
+      <h1>🔢 Matemática</h1>
+      <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+    </div>
+
+    <div class="placar">
+      ✅ Acertos: {{ acertos }}/{{ maxAcertos }}
+      &nbsp;&nbsp;
+      ❌ Erros: {{ erros }}/{{ maxErros }}
+    </div>
+
+    <div *ngIf="questao && !jogoEncerrado" class="questao-area">
+      <div class="expressao-box">
+        <span class="expressao">{{ questao.expressao }} = ?</span>
+        <button class="btn-audio" (click)="falarQuestao()">🔊</button>
+      </div>
+
+      <p class="instrucao">Escolha a resposta correta:</p>
+
+      <div class="alternativas">
+        <button
+          *ngFor="let alt of questao.alternativas"
+          class="btn-alternativa"
+          [class.acerto]="resultado === 'acerto' && respostaSelecionada === alt"
+          [class.erro]="resultado === 'erro' && respostaSelecionada === alt"
+          [disabled]="resultado !== null"
+          (click)="selecionar(alt)">
+          {{ alt }}
+        </button>
+      </div>
+
+      <div *ngIf="resultado === 'acerto'" class="feedback acerto">
+        🎉 Correto!
+        <button class="btn-proxima" (click)="proximaQuestao()">Próxima →</button>
+      </div>
+
+      <div *ngIf="resultado === 'erro'" class="feedback erro">
+        ❌ Errado! Tente outra.
+      </div>
+    </div>
+
+    <div *ngIf="!questao && !jogoEncerrado" class="carregando">
+      Gerando questão...
+    </div>
+  </div>
+
+  <!-- ✅ NOVO: modal de encerramento -->
+  <div class="modal-overlay" *ngIf="jogoEncerrado">
+    <div class="modal-fim">
+      <div class="modal-emoji">
+        {{ acertos >= maxAcertos ? '🏆' : '📚' }}
+      </div>
+      <h2>{{ acertos >= maxAcertos ? 'Parabéns!' : 'Atividade Encerrada!' }}</h2>
+      <p>{{ mensagemFinal }}</p>
+      <div class="modal-placar">
+        <span>✅ {{ acertos }} acertos</span>
+        <span>❌ {{ erros }} erros</span>
+      </div>
+      <button class="btn-ok" (click)="voltarParaSalas()">OK</button>
+    </div>
+  </div>
+</div>

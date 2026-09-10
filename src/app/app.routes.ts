@@ -55,6 +55,14 @@ export const routes: Routes = [
       .then(m => m.EmbaralharProfessorComponent)
   },
 
+  {
+    path: 'matematica/professor',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/matematica-professor/matematica-professor')
+        .then(m => m.MatematicaProfessorComponent)
+  },
+
   // 👨‍🎓 ALUNO
   {
     path: 'aluno',
@@ -73,6 +81,13 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () =>
       import('./jogo/jogo').then(m => m.JogoComponent)
+  },
+
+  {
+    path: 'matematica/aluno',
+    loadComponent: () =>
+      import('./pages/matematica-aluno/matematica-aluno')
+        .then(m => m.MatematicaAlunoComponent)
   },
 
   // 🎮 OUTROS
@@ -136,5 +151,12 @@ export const routes: Routes = [
     path: 'embaralhar/aluno/jogo/:id',
     loadComponent: () =>
       import('./pages/embaralhar-jogo/embaralhar-jogo').then(m => m.EmbaralharJogoComponent)
+  },
+
+  {
+    path: 'matematica/aluno/jogo/:id',
+    loadComponent: () =>
+      import('./pages/matematica-jogo/matematica-jogo')
+        .then(m => m.MatematicaJogoComponent)
   },
 ];

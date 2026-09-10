@@ -16,14 +16,13 @@ export class AlunoDashboardComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => this.falar('Escolha um jogo'), 600);
-
     document.addEventListener('touchstart', () => {
       this.falar('Escolha um jogo');
     }, { once: true });
   }
 
   falar(texto: string, event?: Event) {
-    if (event) event.stopPropagation(); // evita selecionar o jogo ao clicar no 🔊
+    if (event) event.stopPropagation();
     window.speechSynthesis.cancel();
     const msg = new SpeechSynthesisUtterance(texto);
     msg.lang = 'pt-BR';
@@ -37,6 +36,7 @@ export class AlunoDashboardComponent implements OnInit {
     if (jogo === 2) { this.router.navigate(['/embaralhar/aluno']); return; }
     if (jogo === 3) { this.router.navigate(['/memorizacao']); return; }
     if (jogo === 4) { this.router.navigate(['/aluno-imagem']); return; }
+    if (jogo === 5) { this.router.navigate(['/matematica/aluno']); return; }
   }
 
   voltar() { this.router.navigate(['/']); }

@@ -1,0 +1,81 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:host {
+  display: block;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  height: 100vh;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: clamp(15px, 2vw, 25px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 12px;
+  h1 { color: #667eea; font-size: clamp(1rem, 3vw, 1.5rem); }
+}
+
+.btn-voltar {
+  background: #667eea; color: white;
+  border: none; padding: 8px 16px;
+  border-radius: 5px; cursor: pointer; font-weight: bold;
+}
+
+h2 { color: #667eea; margin-bottom: 15px; }
+
+.salas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.sala-card {
+  border: 2px solid #667eea; border-radius: 12px;
+  padding: 20px 15px; text-align: center;
+  cursor: pointer; transition: all 0.3s;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  &:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+}
+
+.sala-icon { font-size: 2.5rem; }
+
+.badge {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 20px; font-size: 0.85rem; font-weight: bold;
+  &-facil { background: #d4edda; color: #155724; }
+  &-medio { background: #fff3cd; color: #856404; }
+  &-dificil { background: #f8d7da; color: #721c24; }
+}
+
+.sala-id { color: #666; font-size: 0.85rem; }
+
+.btn-audio {
+  background: #4CAF50; color: white;
+  border: none; border-radius: 50%;
+  width: 34px; height: 34px; font-size: 0.9rem;
+  cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+}
+
+.btn-entrar {
+  background: #667eea; color: white;
+  border: none; width: 100%; padding: 10px;
+  border-radius: 8px; font-weight: bold; cursor: pointer;
+  &:hover { background: #5568d3; }
+}
+
+.vazio { text-align: center; color: #999; padding: 20px; }

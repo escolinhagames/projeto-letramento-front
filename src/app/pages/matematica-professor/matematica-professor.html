@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="header">
+    <h1>🔢 Jogo Matemática — Professor</h1>
+    <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+  </div>
+
+  <div *ngIf="mensagem" [class]="'alert alert-' + mensagemTipo">{{ mensagem }}</div>
+
+  <div class="form-section">
+    <h2>Criar Nova Sala</h2>
+
+    <div class="form-group">
+      <label>Dificuldade</label>
+      <select [(ngModel)]="dificuldade">
+        <option value="FACIL">Fácil — adição e subtração com 2 números</option>
+        <option value="MEDIO">Médio — multiplicação e divisão com 2 números</option>
+        <option value="DIFICIL">Difícil — todas as operações com 3 ou 4 números</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Máximo de acertos</label>
+        <input type="number" [(ngModel)]="maxAcertos" min="1" max="20">
+      </div>
+      <div class="form-group">
+        <label>Máximo de erros</label>
+        <input type="number" [(ngModel)]="maxErros" min="1" max="20">
+      </div>
+    </div>
+
+    <div class="descricao-dificuldade">
+      <p *ngIf="dificuldade === 'FACIL'">➕ ➖ com 2 números (ex: 3 + 5)</p>
+      <p *ngIf="dificuldade === 'MEDIO'">✖️ ➗ com 2 números (ex: 4 × 3)</p>
+      <p *ngIf="dificuldade === 'DIFICIL'">Todas as operações, máx 1 × ou ÷ (ex: 3 + 5 - 2 × 2)</p>
+    </div>
+
+    <button class="btn-criar" (click)="criar()">Criar Sala</button>
+  </div>
+
+  <h2>Minhas Salas</h2>
+  <p *ngIf="carregando" class="vazio">Carregando...</p>
+  <p *ngIf="!carregando && salas.length === 0" class="vazio">Nenhuma sala criada ainda.</p>
+
+  <div class="salas-grid" *ngIf="!carregando && salas.length > 0">
+    <div class="sala-card" *ngFor="let sala of salas">
+      <div class="sala-icon">🔢</div>
+      <div class="sala-info">
+        <span class="badge" [class]="'badge-' + sala.dificuldade.toLowerCase()">
+          {{ nomeDificuldade(sala.dificuldade) }}
+        </span>
+        <p class="sala-data">{{ sala.criadoEm | slice:0:10 }}</p>
+        <p class="sala-id">Sala #{{ sala.id }}</p>
+      </div>
+      <button class="btn-deletar" (click)="desativar(sala.id)">🗑️ Deletar</button>
+    </div>
+  </div>
+</div>

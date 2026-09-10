@@ -30,5 +30,11 @@
       <p>Adivinhe a imagem pela dica de letras</p>
       <button class="btn-audio" (click)="falar('Acerte a letra', $event)">🔊</button>
     </div>
+
+    <div class="game-card" (click)="selecionarJogo(5)">
+      <h3>🔢 Matemática</h3>
+      <p>Resolva contas e acerte as respostas</p>
+      <button class="btn-audio" (click)="falar('Matemática', $event)">🔊</button>
+    </div>
   </div>
 </div>
