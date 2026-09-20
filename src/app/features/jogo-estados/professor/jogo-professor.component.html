@@ -1,0 +1,20 @@
+<div class="jogo-professor">
+  <h1 class="jogo-professor__titulo">Estado da rodada</h1>
+
+  @if (estadoAtual(); as estado) {
+    <p class="jogo-professor__estado">{{ estado.nome }} ({{ estado.sigla }})</p>
+  } @else {
+    <p class="jogo-professor__estado jogo-professor__estado--carregando">Carregando...</p>
+  }
+
+  <button
+    type="button"
+    class="jogo-professor__botao"
+    [disabled]="trocando()"
+    (click)="mudarEstado()"
+  >
+    Mudar estado
+  </button>
+
+  <app-mapa-brasil [interativo]="false" />
+</div>

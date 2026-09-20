@@ -1,0 +1,22 @@
+<div class="jogo-aluno">
+  <h1 class="jogo-aluno__titulo">Onde fica...</h1>
+
+  @if (estadoAtual(); as estado) {
+    <p class="jogo-aluno__estado">{{ estado.nome | uppercase }}</p>
+  } @else {
+    <p class="jogo-aluno__estado jogo-aluno__estado--carregando">Carregando...</p>
+  }
+
+  @if (acertou() === true) {
+    <p class="jogo-aluno__feedback jogo-aluno__feedback--ok">Isso mesmo! Muito bem! 🎉</p>
+  } @else if (acertou() === false) {
+    <p class="jogo-aluno__feedback jogo-aluno__feedback--erro">Ainda não! Tente outro estado. 🙂</p>
+  }
+
+  <app-mapa-brasil
+    [interativo]="true"
+    [siglaSelecionada]="siglaSelecionada()"
+    [acertou]="acertou()"
+    (estadoClicado)="onEstadoClicado($event)"
+  />
+</div>

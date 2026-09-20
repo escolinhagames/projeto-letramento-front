@@ -37,6 +37,10 @@ export class AlunoDashboardComponent implements OnInit {
     if (jogo === 3) { this.router.navigate(['/memorizacao']); return; }
     if (jogo === 4) { this.router.navigate(['/aluno-imagem']); return; }
     if (jogo === 5) { this.router.navigate(['/matematica/aluno']); return; }
+    if (jogo === 6) {
+  this.router.navigate(['/jogo-estados/jogo/aluno']);
+  return;
+}
   }
 
   voltar() { this.router.navigate(['/']); }

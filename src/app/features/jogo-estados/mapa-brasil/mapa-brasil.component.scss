@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap');
+
+.mapa-brasil {
+  display: block;
+  width: min(100%, 600px);
+  height: auto;
+  max-height: 72vh;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  user-select: none;
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .mapa-brasil {
+    max-height: 52vh;
+    padding: 0;
+  }
+}
+
+.estado {
+  fill: #7ed4ff;
+  stroke: #ffffff;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill 0.18s ease-out, transform 0.18s ease-out, filter 0.18s ease-out;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,0.35));
+}
+
+.mapa-brasil--interativo .estado {
+  cursor: pointer;
+
+  &:hover {
+    fill: #45c2ff;
+    filter: brightness(1.05);
+  }
+}
+
+.estado--correto {
+  fill: #7ae198 !important;
+}
+
+.estado--incorreto {
+  fill: #ff9d8b !important;
+}
+
+.estado-sigla {
+  font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  fill: #123d72;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(255,255,255,0.8);
+  stroke-width: 1.4px;
+}
