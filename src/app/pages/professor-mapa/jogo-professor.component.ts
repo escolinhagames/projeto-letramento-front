@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { MapaBrasilComponent } from '../mapa-brasil/mapa-brasil.component';
-import { JogoEstadosService } from '../services/jogo-estados.service';
+import { JogoEstadosService } from '../../../service/jogo-estados.service';
 
 /**
  * Tela do professor: mesmo mapa da tela do aluno, mas sem responder por clique.

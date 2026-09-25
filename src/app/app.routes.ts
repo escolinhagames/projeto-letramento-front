@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
-import { JOGO_ESTADOS_ROUTES } from './features/jogo-estados/jogo-estados.routes';
 
 export const routes: Routes = [
   // 🏠 PÚBLICO
@@ -84,7 +83,18 @@ export const routes: Routes = [
       import('./jogo/jogo').then(m => m.JogoComponent)
   },
 
-  ...JOGO_ESTADOS_ROUTES,
+  {
+    path: 'jogo-estados/jogo/aluno',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/aluno-mapa/jogo-aluno.component').then(m => m.JogoAlunoComponent)
+  },
+  {
+    path: 'jogo-estados/jogo/professor',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/professor-mapa/jogo-professor.component').then(m => m.JogoProfessorComponent)
+  },
 
   {
     path: 'matematica/aluno',
@@ -162,17 +172,11 @@ export const routes: Routes = [
       import('./pages/matematica-jogo/matematica-jogo')
         .then(m => m.MatematicaJogoComponent)
   },
- {
-  path: 'jogo-estados',
-  canActivate: [authGuard],
-  loadComponent: () =>
-    import('./features/jogo-estados/professor/jogo-professor.component')
-      .then(m => m.JogoProfessorComponent)
-},
-
   {
     path: 'jogo-estados',
     canActivate: [authGuard],
-    children: JOGO_ESTADOS_ROUTES
+    loadComponent: () =>
+      import('./pages/professor-mapa/jogo-professor.component')
+        .then(m => m.JogoProfessorComponent)
   },
 ];

@@ -1,7 +1,7 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { MapaBrasilComponent } from '../mapa-brasil/mapa-brasil.component';
-import { JogoEstadosService } from '../services/jogo-estados.service';
+import { JogoEstadosService } from '../../../service/jogo-estados.service';
 
 /**
  * Tela do aluno: mostra o nome do estado sorteado e o mapa clicável.

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, interval, startWith, switchMap, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../environments/environment';
 import { Estado } from '../models/estado.model';
 
 /**
