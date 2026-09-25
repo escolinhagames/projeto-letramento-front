@@ -84,6 +84,19 @@ export const routes: Routes = [
   },
 
   {
+    path: 'jogo-estados/jogo/aluno',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/aluno-mapa/jogo-aluno.component').then(m => m.JogoAlunoComponent)
+  },
+  {
+    path: 'jogo-estados/jogo/professor',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/professor-mapa/jogo-professor.component').then(m => m.JogoProfessorComponent)
+  },
+
+  {
     path: 'matematica/aluno',
     loadComponent: () =>
       import('./pages/matematica-aluno/matematica-aluno')
@@ -158,5 +171,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/matematica-jogo/matematica-jogo')
         .then(m => m.MatematicaJogoComponent)
+  },
+  {
+    path: 'jogo-estados',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/professor-mapa/jogo-professor.component')
+        .then(m => m.JogoProfessorComponent)
   },
 ];

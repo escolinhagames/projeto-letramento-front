@@ -1,0 +1,31 @@
+<svg
+  class="mapa-brasil"
+  [class.mapa-brasil--interativo]="interativo()"
+  [attr.viewBox]="viewBox"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Mapa do Brasil dividido por estados"
+>
+  @for (estado of estados; track estado.sigla) {
+    <g class="estado-grupo">
+      <path
+        class="estado"
+        [class.estado--correto]="siglaSelecionada() === estado.sigla && acertou() === true"
+        [class.estado--incorreto]="siglaSelecionada() === estado.sigla && acertou() === false"
+        [attr.d]="estado.path"
+        [attr.data-sigla]="estado.sigla"
+        [style.fill]="getCorEstado(estado.sigla)"
+        (click)="onEstadoClick(estado.sigla)"
+      >
+        <title>{{ estado.nome }}</title>
+      </path>
+      <text
+        class="estado-sigla"
+        [attr.x]="estado.cx"
+        [attr.y]="estado.cy"
+        text-anchor="middle"
+        dominant-baseline="middle"
+      >{{ estado.sigla }}</text>
+    </g>
+  }
+</svg>
