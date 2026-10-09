@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -20,8 +21,13 @@ export class CadastroComponent {
 
  constructor(
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private location: Location
   ) {}
+
+  voltar(): void {
+    this.location.back();
+  }
 
   async salvar() {
     if (this.senha !== this.confirmar) {

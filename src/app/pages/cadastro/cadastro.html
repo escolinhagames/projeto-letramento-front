@@ -1,14 +1,48 @@
 <div class="container">
+
+
+
   <div class="box">
+    <div class="top">
+      <button class="back" (click)="voltar()" aria-label="Voltar">
+        ⬅
+      </button>
+    </div>
+
     <h2>Cadastro</h2>
 
-    <input placeholder="Nome" [(ngModel)]="nome">
-    <input placeholder="Email" [(ngModel)]="email">
-    <input type="password" placeholder="Senha" [(ngModel)]="senha">
-    <input type="password" placeholder="Confirme sua senha" [(ngModel)]="confirmar">
+    <input
+      type="text"
+      placeholder="Nome"
+      [(ngModel)]="nome"
+    >
 
-    <button (click)="salvar()">Salvar</button>
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+    >
 
-    <p *ngIf="erro">{{erro}}</p>
+    <input
+      type="password"
+      placeholder="Senha"
+      [(ngModel)]="senha"
+    >
+
+    <input
+      type="password"
+      placeholder="Confirme sua senha"
+      [(ngModel)]="confirmar"
+    >
+
+    <button class="save-button" (click)="salvar()">
+      Salvar
+    </button>
+
+    <p *ngIf="erro" class="erro">
+      {{ erro }}
+    </p>
+
   </div>
+
 </div>

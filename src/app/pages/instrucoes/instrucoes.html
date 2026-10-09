@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="header">
+    <h1>Instruções dos Jogos</h1>
+    <button class="btn-voltar" (click)="voltar()">← Voltar</button>
+  </div>
+
+  <div class="videos-grid">
+    <div class="video-card" *ngFor="let video of videos">
+      <h2>{{ video.titulo }}</h2>
+      <div class="video-wrapper">
+        <iframe
+          [src]="video.url"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>

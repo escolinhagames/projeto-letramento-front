@@ -41,8 +41,8 @@ export class DashboardComponent implements OnInit {
     if (jogo === 3) { this.router.navigate(['/memorizacao']); return; }
     if (jogo === 4) { this.router.navigate(['/professor-imagem']); return; }
     if (jogo === 5) { this.router.navigate(['/matematica/professor']); return; }
-    if (jogo === 6) { this.router.navigate(['/jogo-estados/jogo/professor']); return;
-
+    if (jogo === 6) { this.router.navigate(['/jogo-estados/jogo/professor']); return; }
+    if (jogo === 7) { this.router.navigate(['/instrucoes']); return;
 }
   }
 

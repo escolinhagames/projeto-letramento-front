@@ -26,6 +26,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/creditos/creditos').then(m => m.CreditosComponent)
   },
+  {
+    path: 'sobre',
+    loadComponent: () =>
+      import('./pages/sobre/sobre').then(m => m.SobreComponent)
+  },
 
   // 🔒 PROFESSOR
   {
@@ -61,6 +66,19 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/matematica-professor/matematica-professor')
         .then(m => m.MatematicaProfessorComponent)
+  },
+  {
+    path: 'jogo-estados',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/professor-mapa/jogo-professor.component')
+        .then(m => m.JogoProfessorComponent)
+  },
+  {
+    path: 'instrucoes',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/instrucoes/instrucoes').then(m => m.InstrucoesComponent)
   },
 
   // 👨‍🎓 ALUNO
@@ -171,12 +189,5 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/matematica-jogo/matematica-jogo')
         .then(m => m.MatematicaJogoComponent)
-  },
-  {
-    path: 'jogo-estados',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/professor-mapa/jogo-professor.component')
-        .then(m => m.JogoProfessorComponent)
   },
 ];
