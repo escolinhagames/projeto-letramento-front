@@ -1,11 +1,10 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { MapaBrasilComponent } from '../mapa-brasil/mapa-brasil.component';
+import { Component, OnInit, inject } from '@angular/core';
 import { JogoEstadosService } from '../../../service/jogo-estados.service';
+import { MapaBrasilComponent } from '../mapa-brasil/mapa-brasil.component';
 
 /**
- * Tela do professor: mesmo mapa da tela do aluno, mas sem responder por clique.
- * O botão "Mudar estado" sorteia um novo estado no backend; a tela do aluno
- * recebe a mudança automaticamente (ver JogoEstadosService).
+ * Tela do professor: acompanha o estado atual do jogo e exibe o mapa.
+ * A troca do estado passa a ocorrer somente quando o aluno acerta.
  */
 @Component({
   selector: 'app-jogo-professor',
@@ -18,20 +17,14 @@ export class JogoProfessorComponent implements OnInit {
   private readonly jogoService = inject(JogoEstadosService);
 
   readonly estadoAtual = this.jogoService.estadoAtual;
-  readonly trocando = signal(false);
+  readonly dificuldadeAtual = this.jogoService.dificuldadeAtual;
 
   ngOnInit(): void {
     this.jogoService.iniciarSincronizacao();
+    this.jogoService.setDificuldade(this.jogoService.dificuldadeAtual());
   }
 
-  mudarEstado(): void {
-    if (this.trocando()) {
-      return;
-    }
-    this.trocando.set(true);
-    this.jogoService.mudarEstado().subscribe({
-      complete: () => this.trocando.set(false),
-      error: () => this.trocando.set(false)
-    });
+  definirDificuldade(dificuldade: 'facil' | 'dificil'): void {
+    this.jogoService.setDificuldade(dificuldade);
   }
 }

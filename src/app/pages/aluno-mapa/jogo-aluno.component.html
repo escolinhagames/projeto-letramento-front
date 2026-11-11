@@ -7,6 +7,10 @@
     <p class="jogo-aluno__estado jogo-aluno__estado--carregando">Carregando...</p>
   }
 
+  @if (mostrarDica()) {
+    <p class="jogo-aluno__dica">{{ getDicaAtual() }}</p>
+  }
+
   @if (acertou() === true) {
     <p class="jogo-aluno__feedback jogo-aluno__feedback--ok">Isso mesmo! Muito bem! 🎉</p>
   } @else if (acertou() === false) {

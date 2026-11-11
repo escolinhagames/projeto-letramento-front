@@ -1,20 +1,25 @@
 <div class="jogo-professor">
-  <h1 class="jogo-professor__titulo">Estado da rodada</h1>
+  <h1 class="jogo-professor__titulo">Configuração da rodada</h1>
 
-  @if (estadoAtual(); as estado) {
-    <p class="jogo-professor__estado">{{ estado.nome }} ({{ estado.sigla }})</p>
-  } @else {
-    <p class="jogo-professor__estado jogo-professor__estado--carregando">Carregando...</p>
-  }
+  <div class="jogo-professor__dificuldade">
+    <button
+      type="button"
+      class="jogo-professor__botao"
+      [class.jogo-professor__botao--ativo]="dificuldadeAtual() === 'facil'"
+      (click)="definirDificuldade('facil')"
+    >
+      Facil
+    </button>
 
-  <button
-    type="button"
-    class="jogo-professor__botao"
-    [disabled]="trocando()"
-    (click)="mudarEstado()"
-  >
-    Mudar estado
-  </button>
+    <button
+      type="button"
+      class="jogo-professor__botao"
+      [class.jogo-professor__botao--ativo]="dificuldadeAtual() === 'dificil'"
+      (click)="definirDificuldade('dificil')"
+    >
+      Dificil
+    </button>
+  </div>
 
   <app-mapa-brasil [interativo]="false" />
 </div>
